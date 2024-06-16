@@ -1,4 +1,9 @@
 import createNextIntlPlugin from 'next-intl/plugin'
+import createJiti from 'jiti'
+
+// build-time env schema validation
+const jiti = createJiti(fileURLToPath(import.meta.url))
+jiti('./src/lib/env')
 
 const withNextIntl = createNextIntlPlugin('./src/lib/next-intl')
 
