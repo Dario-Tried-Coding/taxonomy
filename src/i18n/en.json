@@ -1,0 +1,118 @@
+{
+  "Index": {
+    "title": "Hello World!"
+  },
+  "Auth": {
+    "UI": {
+      "Login": {
+        "cta": "Login"
+      }
+    },
+    "Errors": {
+      "unauthenticated": "Unauthorized operation. Please log in to continue."
+    }
+  },
+  "Project": {
+    "description": "An open-source application to test, showcase, and share all the best practices related to Next.js and React."
+  },
+  "Components": {
+    "MainNav": {
+      "menu": "Menu",
+      "Links": {
+        "features": "Features",
+        "pricing": "Pricing",
+        "blog": "Blog",
+        "documentation": "Documentation"
+      }
+    },
+    "ThemesSwitch": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "Footer": {
+      "footnote": "Made by <twitter></twitter>. Hosted on <vercel>Vercel</vercel>. Illustrations by <popsy>Popsy</popsy>. Source code available on <github>GitHub</github>."
+    }
+  },
+  "Pages": {
+    "Home": {
+      "Hero": {
+        "follow-along": "Follow on Twitter",
+        "heading": "An open-source app showcasing the best of Next.js 14",
+        "sub-heading": "I'm building a fully open-source web app with Next.js 14. Follow the development on Twitter as we explore and learn together.",
+        "buttons": {
+          "get-started": "Get Started",
+          "github": "GitHub"
+        }
+      },
+      "Features": {
+        "heading": "Features",
+        "sub-heading": "This is an experimental project. Together, we'll build a modern web app with all the new and advanced features of Next.js 14.",
+        "features": {
+          "NextJS": {
+            "title": "Next.js 14",
+            "description": "App dir, Routing, Layouts, Loading UI, and API routes."
+          },
+          "React18": {
+            "title": "React 18",
+            "description": "Server and Client Components. Hooks and Suspense."
+          },
+          "Database": {
+            "title": "Database",
+            "description": "Prisma ORM and Supabase."
+          },
+          "Components": {
+            "title": "Components",
+            "description": "UI components built with Radix UI and Tailwind CSS."
+          },
+          "Authentication": {
+            "title": "Authentication",
+            "description": "Authentication with NextAuth.js and middlewares."
+          },
+          "Subscriptions": {
+            "title": "Subscriptions",
+            "description": "FREE and PRO plans with Stripe."
+          },
+          "Internationalization": {
+            "title": "Internationalization",
+            "description": "Multi-language support with Next-intl."
+          },
+          "Theming": {
+            "title": "Advanced Theming",
+            "description": "Support for advanced UI theming."
+          }
+        },
+        "footnote": "Taxonomy also includes a blog and a comprehensive documentation system, built using Contentlayer and MDX."
+      },
+      "OpenSource": {
+        "heading": "Proudly Open Source",
+        "sub-heading": "Taxonomy is fully open-source. The source code is available on <github>GitHub</github>.",
+        "stars": "{count, plural, =0 {No stars} =1 {1 star} other {# stars}} on GitHub."
+      }
+    },
+    "Pricing": {
+      "Metadata": {
+        "title": "Pricing"
+      },
+      "UI": {
+        "heading": "Simple and Transparent Pricing",
+        "sub-heading": "Unlock all features including unlimited posts for your blog.",
+        "ProPlan": {
+          "heading": "What's included in the PRO plan",
+          "Features": {
+            "unlimited-posts": "Unlimited posts",
+            "unlimited-users": "Unlimited users",
+            "custom-domain": "Custom domain",
+            "dashboard-analytics": "Dashboard and analytics",
+            "discord": "Access to Discord community",
+            "premium-support": "Premium support"
+          },
+          "price": "€{price}",
+          "period": "per month",
+          "cta": "Get Started"
+        },
+        "foot-note": "Taxonomy is just a demo. <bold>You can safely switch to PRO and you will not be charged anything.</bold>"
+      }
+    }
+  }
+}

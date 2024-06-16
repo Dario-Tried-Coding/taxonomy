@@ -1,0 +1,118 @@
+{
+  "Index": {
+    "title": "Ciao mondo!"
+  },
+  "Auth": {
+    "UI": {
+      "Login": {
+        "cta": "Accedi"
+      }
+    },
+    "Errors": {
+      "unauthenticated": "Operazione non autorizzata. Effettua l'accesso per continuare."
+    }
+  },
+  "Project": {
+    "description": "Un'applicazione open source per testare, mostrare e divulgare tutte quante le 'best practices' relative a Next.js e React."
+  },
+  "Components": {
+    "MainNav": {
+      "menu": "Menu",
+      "Links": {
+        "features": "Funzionalità",
+        "pricing": "Prezzi",
+        "blog": "Blog",
+        "documentation": "Documentazione"
+      }
+    },
+    "ThemesSwitch": {
+      "light": "Chiaro",
+      "dark": "Scuro",
+      "system": "Sistema"
+    },
+    "Footer": {
+      "footnote": "Realizzato da <twitter></twitter>. Ospitato su <vercel>Vercel</vercel>. Illustrazioni di <popsy>Popsy</popsy>. Codice sorgente disponibile su <github>GitHub</github>."
+    }
+  },
+  "Pages": {
+    "Home": {
+      "Hero": {
+        "follow-along": "Segui su Twitter",
+        "heading": "Una app open-source per mostrare il meglio di Next.js 14",
+        "sub-heading": "Sto realizzando una web app con Next.js 14 del tutto open source. Segui lo sviluppo su Twitter man mano che capiamo e proviamo insieme come funziona il tutto.",
+        "buttons": {
+          "get-started": "Inizia ora",
+          "github": "Github"
+        }
+      },
+      "Features": {
+        "heading": "Funzionalità",
+        "sub-heading": "Questo è un progetto esperimento. Realizzeremo insieme una moderna web app con tutte le nuove e più avanzate funzionalità di Next.js 14.",
+        "features": {
+          "NextJS": {
+            "title": "Next.js 14",
+            "description": "App dir, Routing, Layouts, Loading UI e API routes."
+          },
+          "React18": {
+            "title": "React 18",
+            "description": "Server e Client Components. Hooks e Suspense."
+          },
+          "Database": {
+            "title": "Database",
+            "description": "Prisma ORM e Supabase."
+          },
+          "Components": {
+            "title": "Componenti",
+            "description": "Componenti UI realizzati con Radix UI e Tailwind CSS."
+          },
+          "Authentication": {
+            "title": "Autenticazione",
+            "description": "Autenticazione con NextAuth.js e middlewares."
+          },
+          "Subscriptions": {
+            "title": "Abbonamenti",
+            "description": "Piano GRATIS e PRO con Stripe."
+          },
+          "Internationalization": {
+            "title": "Internazionalizzazione",
+            "description": "Supporto per più lingue con Next-intl."
+          },
+          "Theming": {
+            "title": "Tematizzazione avanzata",
+            "description": "Supporto per avanzata tematizzazione della UI."
+          }
+        },
+        "footnote": "Taxonomy include inoltre un blog e un completo sistema di documentazione, realizzati utilizzando Contentlayer e MDX."
+      },
+      "OpenSource": {
+        "heading": "Con orgoglio, open source",
+        "sub-heading": "Taxonomy è interamente open source. Il codice sorgente è disponibile su <github>GitHub</github>.",
+        "stars": "{count, plural, =0 {Nessuna stella} =1 {1 stella} other {# stelle}} su GitHub."
+      }
+    },
+    "Pricing": {
+      "Metadata": {
+        "title": "Prezzi"
+      },
+      "UI": {
+        "heading": "Prezzo semplice e trasparente",
+        "sub-heading": "Sblocca tutte le funzionalità tra cui post illimitati per il tuo blog.",
+        "ProPlan": {
+          "heading": "Cosa è incluso nel piano PRO",
+          "Features": {
+            "unlimited-posts": "Post illimitati",
+            "unlimited-users": "Utenti illimitati",
+            "custom-domain": "Dominio personalizzato",
+            "dashboard-analytics": "Dashboard e analitiche",
+            "discord": "Accesso alla community Discord",
+            "premium-support": "Supporto premium"
+          },
+          "price": "€{price}",
+          "period": "al mese",
+          "cta": "Inizia"
+        },
+        "foot-note": "Taxonomy è solo una demo. <bold>Puoi tranquillamente passare a PRO e non ti sarà addebitato nulla.</bold>"
+      }
+    }
+  }
+}
