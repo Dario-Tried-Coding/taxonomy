@@ -5,3 +5,4 @@ export const Route = {
   params: z.object({})
 };
 
+export const PATH = '/'
