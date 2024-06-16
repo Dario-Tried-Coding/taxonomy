@@ -201,7 +201,7 @@
     --accent-foreground: var(--base-1000);
     --destructive: var(--negative-300);
     --destructive-foreground: var(--complementary-1000);
-    --popover: var(--complementary-1000);
+    --popover: var(--complementary-50);
     --popover-foreground: var(--base-700);
     --card: var(--complementary-50);
     --card-foreground: var(--complementary-900);
