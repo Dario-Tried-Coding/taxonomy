@@ -1,20 +1,20 @@
-import type { Config } from "tailwindcss";
+// import { createPreset } from 'fumadocs-ui/tailwind-plugin'
+import { themesPreset } from './src/lib/tailwind/presets'
+import type { Config } from 'tailwindcss'
 
-const config: Config = {
+const config = {
+  darkMode: ['selector', '.dark'],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './node_modules/fumadocs-ui/dist/**/*.js',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+    './content/**/*.mdx',
+    './mdx-components.tsx',
   ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-    },
-  },
-  plugins: [],
-};
-export default config;
+  // presets: [createPreset(), themesPreset],
+  presets: [themesPreset],
+} satisfies Config
+
+export default config

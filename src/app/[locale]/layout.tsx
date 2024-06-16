@@ -2,10 +2,21 @@ import { constructMetadata } from '@/helpers'
 import { setRequestLocale } from '@/lib/next-intl'
 import { I18N_CONFIG, Locale } from '@/lib/next-intl/config'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import Providers from '@/components/providers/Providers.server'
+import { Inter as FontSans } from 'next/font/google'
+import localFont from 'next/font/local'
+import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const fontSans = FontSans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
+
+const fontHeading = localFont({
+  src: '../../assets/fonts/CalSans-SemiBold.woff2',
+  variable: '--font-heading',
+})
 
 type Props = {
   children: React.ReactNode
@@ -27,7 +38,9 @@ export default function RootLayout({ children, params: { locale } }: Readonly<Pr
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>{children}</body>
+      <body className={cn('min-h-screen font-sans antialiased', fontSans.variable, fontHeading.className)}>
+        <Providers locale={locale}>{children}</Providers>
+      </body>
     </html>
   )
 }

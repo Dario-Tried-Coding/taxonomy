@@ -1,5 +1,6 @@
 import createNextIntlPlugin from 'next-intl/plugin'
 import createJiti from 'jiti'
+import { fileURLToPath } from 'node:url'
 
 // build-time env schema validation
 const jiti = createJiti(fileURLToPath(import.meta.url))

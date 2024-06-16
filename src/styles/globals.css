@@ -2,32 +2,221 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    /* neutral */
+    --hash: 0, 0%, 100%;
+    --hash-50: 0, 0%, 98%;
+    --hash-100: 0, 0%, 96.1%;
+    --hash-200: 0, 0%, 89.8%;
+    --hash-300: 0, 0%, 83.1%;
+    --hash-400: 0, 0%, 63.9%;
+    --hash-500: 0, 0%, 45.1%;
+    --hash-600: 0, 0%, 32.2%;
+    --hash-700: 0, 0%, 25.1%;
+    --hash-800: 0, 0%, 14.9%;
+    --hash-900: 0, 0%, 9%;
+    --hash-950: 0, 0%, 3.9%;
+    --hash-1000: 0, 0%, 0%;
+
+    /* slate */
+    --slate-50: 210, 40%, 98%;
+    --slate-100: 210, 40%, 96.1%;
+    --slate-200: 214.3, 31.8%, 91.4%;
+    --slate-300: 212.7, 26.8%, 83.9%;
+    --slate-400: 215, 20.2%, 65.1%;
+    --slate-500: 215.4, 16.3%, 46.9%;
+    --slate-600: 215.3, 19.3%, 34.5%;
+    --slate-700: 215.3, 25%, 26.7%;
+    --slate-800: 217.2, 32.6%, 17.5%;
+    --slate-900: 222.2, 47.4%, 11.2%;
+    --slate-950: 228.6, 84%, 4.9%;
+    --slate-1000: 228.6, 84%, 2.1%;
+
+    /* slate */
+    --gray-50: 210, 20%, 98%;
+    --gray-100: 220, 14.3%, 95.9%;
+    --gray-200: 220, 13%, 91%;
+    --gray-300: 216, 12.2%, 83.9%;
+    --gray-400: 217.9, 10.6%, 64.9%;
+    --gray-500: 220, 8.9%, 46.1%;
+    --gray-600: 215, 13.8%, 34.1%;
+    --gray-700: 216.9, 19.1%, 26.7%;
+    --gray-800: 215, 27.9%, 16.9%;
+    --gray-900: 220.9, 39.3%, 11%;
+    --gray-950: 224, 71.4%, 4.1%;
+
+    /* red */
+    --red-50: 0, 85.7%, 97.3%;
+    --red-100: 0, 93.3%, 94.1%;
+    --red-200: 0, 96.3%, 89.4%;
+    --red-300: 0, 93.5%, 81.8%;
+    --red-400: 0, 90.6%, 70.8%;
+    --red-500: 0, 84.2%, 60.2%;
+    --red-600: 0, 72.2%, 50.6%;
+    --red-700: 0, 73.7%, 41.8%;
+    --red-800: 0, 70%, 35.3%;
+    --red-900: 0, 62.8%, 30.6%;
+    --red-950: 0, 74.7%, 15.5%;
+    --red-1000: 0, 74.7%, 5%;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+  [data-theme='default'] {
+    --neutral: var(--hash);
+    --neutral-50: var(--hash-50);
+    --neutral-100: var(--hash-100);
+    --neutral-200: var(--hash-200);
+    --neutral-300: var(--hash-300);
+    --neutral-400: var(--hash-400);
+    --neutral-500: var(--hash-500);
+    --neutral-600: var(--hash-600);
+    --neutral-700: var(--hash-700);
+    --neutral-800: var(--hash-800);
+    --neutral-900: var(--hash-900);
+    --neutral-950: var(--hash-950);
+    --neutral-1000: var(--hash-1000);
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+    --base-50: var(--slate-50);
+    --base-100: var(--slate-100);
+    --base-200: var(--slate-200);
+    --base-300: var(--slate-300);
+    --base-400: var(--slate-400);
+    --base-500: var(--slate-500);
+    --base-600: var(--slate-600);
+    --base-700: var(--slate-700);
+    --base-800: var(--slate-800);
+    --base-900: var(--slate-900);
+    --base-950: var(--slate-950);
+    --base-1000: var(--slate-1000);
+
+    --complementary-50: var(--gray-50);
+    --complementary-100: var(--gray-100);
+    --complementary-200: var(--gray-200);
+    --complementary-300: var(--gray-300);
+    --complementary-400: var(--gray-400);
+    --complementary-500: var(--gray-500);
+    --complementary-600: var(--gray-600);
+    --complementary-700: var(--gray-700);
+    --complementary-800: var(--gray-800);
+    --complementary-900: var(--gray-900);
+    --complementary-950: var(--gray-950);
+    --complementary-1000: var(--gray-1000);
+
+    --negative-50: var(--red-50);
+    --negative-100: var(--red-100);
+    --negative-200: var(--red-200);
+    --negative-300: var(--red-300);
+    --negative-400: var(--red-400);
+    --negative-500: var(--red-500);
+    --negative-600: var(--red-600);
+    --negative-700: var(--red-700);
+    --negative-800: var(--red-800);
+    --negative-900: var(--red-900);
+    --negative-950: var(--red-950);
+    --negative-1000: var(--red-1000);
+
+    --background: var(--base-50);
+    --foreground: var(--base-900);
+    --primary: var(--base-900);
+    --primary-foreground: var(--base-50);
+    --secondary: var(--base-100);
+    --secondary-foreground: var(--base-900);
+    --muted: var(--base-100);
+    --muted-foreground: var(--base-500);
+    --accent: var(--base-100);
+    --accent-foreground: var(--base-900);
+    --destructive: var(--negative-500);
+    --destructive-foreground: var(--base-50);
+    --popover: var(--neutral);
+    --popover-foreground: var(--base-900);
+    --card: var(--neutral);
+    --card-foreground: var(--base-900);
+    --border: var(--complementary-200);
+    --input: var(--complementary-200);
+    --ring: var(--base-400);
+  }
+  [data-theme='default'].dark {
+    --neutral-1000: var(--hash);
+    --neutral-950: var(--hash-50);
+    --neutral-900: var(--hash-100);
+    --neutral-800: var(--hash-200);
+    --neutral-700: var(--hash-300);
+    --neutral-600: var(--hash-400);
+    --neutral-500: var(--hash-500);
+    --neutral-400: var(--hash-600);
+    --neutral-300: var(--hash-700);
+    --neutral-200: var(--hash-800);
+    --neutral-100: var(--hash-900);
+    --neutral-50: var(--hash-950);
+    --neutral: var(--hash-1000);
+
+    --base-1000: var(--slate-50);
+    --base-950: var(--slate-100);
+    --base-900: var(--slate-200);
+    --base-800: var(--slate-300);
+    --base-700: var(--slate-400);
+    --base-600: var(--slate-500);
+    --base-500: var(--slate-600);
+    --base-400: var(--slate-700);
+    --base-300: var(--slate-800);
+    --base-200: var(--slate-900);
+    --base-100: var(--slate-950);
+    --base-50: var(--slate-1000);
+
+    --complementary-1000: var(--gray-50);
+    --complementary-950: var(--gray-100);
+    --complementary-900: var(--gray-200);
+    --complementary-800: var(--gray-300);
+    --complementary-700: var(--gray-400);
+    --complementary-600: var(--gray-500);
+    --complementary-500: var(--gray-600);
+    --complementary-400: var(--gray-700);
+    --complementary-300: var(--gray-800);
+    --complementary-200: var(--gray-900);
+    --complementary-100: var(--gray-950);
+    --complementary-50: var(--gray-1000);
+
+    --negative-1000: var(--red-50);
+    --negative-950: var(--red-100);
+    --negative-900: var(--red-200);
+    --negative-800: var(--red-300);
+    --negative-700: var(--red-400);
+    --negative-600: var(--red-500);
+    --negative-500: var(--red-600);
+    --negative-400: var(--red-700);
+    --negative-300: var(--red-800);
+    --negative-200: var(--red-900);
+    --negative-100: var(--red-950);
+    --negative-50: var(--red-1000);
+
+    --background: var(--complementary-100);
+    --foreground: var(--complementary-900);
+    --primary: var(--base-1000);
+    --primary-foreground: var(--base-50);
+    --secondary: var(--base-200);
+    --secondary-foreground: var(--base-1000);
+    --muted: var(--base-200);
+    --muted-foreground: var(--base-700);
+    --accent: var(--base-300);
+    --accent-foreground: var(--base-1000);
+    --destructive: var(--negative-300);
+    --destructive-foreground: var(--complementary-1000);
+    --popover: var(--complementary-1000);
+    --popover-foreground: var(--base-700);
+    --card: var(--complementary-50);
+    --card-foreground: var(--complementary-900);
+    --border: var(--complementary-300);
+    --input: var(--complementary-300);
+    --ring: var(--complementary-800);
+  }
+
+  [data-radius='0'] {
+    --radius: 0;
+  }
+  [data-radius='0.5'] {
+    --radius: 0.5rem;
+  }
+  [data-radius='1'] {
+    --radius: 1rem;
   }
 }
