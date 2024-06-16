@@ -15,6 +15,9 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.2.0",
+    "@keystatic/core": "^0.5.19",
+    "@keystatic/next": "^5.0.1",
+    "@markdoc/markdoc": "^0.4.0",
     "@prisma/client": "^5.15.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@types/mdx": "^2.0.13",
