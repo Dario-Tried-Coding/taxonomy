@@ -11,7 +11,8 @@
     "dr:build:watch": "npx declarative-routing build --watch",
     "openapi": "npm run openapi:yaml && npm run openapi:html",
     "openapi:yaml": "ts-node ./src/routes/openapi.ts",
-    "openapi:html": "npx @redocly/cli build-docs openapi-docs.yml"
+    "openapi:html": "npx @redocly/cli build-docs openapi-docs.yml",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.2.0",
