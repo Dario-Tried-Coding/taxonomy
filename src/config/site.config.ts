@@ -8,8 +8,8 @@ export const siteConfig = {
     url: 'https://dariotriedcoding.com',
   },
   twitter: {
-    url: 'https://twitter.com/dariotriedcoding',
-    username: '@dariotriedcoding',
+    url: 'https://twitter.com/dariotriedx',
+    username: '@dariotriedx',
   },
   github: {
     url: 'https://github.com/dariocorbinelli/taxonomy',
