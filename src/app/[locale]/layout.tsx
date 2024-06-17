@@ -38,7 +38,7 @@ export default function RootLayout({ children, params: { locale } }: Readonly<Pr
 
   return (
     <html lang={locale}>
-      <body className={cn('min-h-screen font-sans antialiased', fontSans.variable, fontHeading.className)}>
+      <body className={cn('min-h-screen font-sans antialiased', fontSans.variable, fontHeading.variable)}>
         <Providers locale={locale}>{children}</Providers>
       </body>
     </html>

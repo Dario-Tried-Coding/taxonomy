@@ -6,8 +6,11 @@ const defaultInfo = {
   search: z.object({}),
 }
 
-import * as HomeRoute from '@/app/[locale]/page.info'
+import * as HomeRoute from '@/app/[locale]/(marketing)/page.info'
 import * as DocsRoute from '@/app/[locale]/docs/[[...slugs]]/page.info'
+import * as SignInRoute from '@/app/[locale]/auth/sign-in/page.info'
+import * as BlogRoute from '@/app/[locale]/(marketing)/blog/page.info'
+import * as PricingRoute from '@/app/[locale]/(marketing)/pricing/page.info'
 
 export const Home = makeRoute(HomeRoute.PATH, {
   ...defaultInfo,
@@ -16,4 +19,16 @@ export const Home = makeRoute(HomeRoute.PATH, {
 export const Docs = makeRoute(DocsRoute.PATH, {
   ...defaultInfo,
   ...DocsRoute.Route,
+})
+export const SignIn = makeRoute(SignInRoute.PATH, {
+  ...defaultInfo,
+  ...SignInRoute.Route,
+})
+export const Blog = makeRoute(BlogRoute.PATH, {
+  ...defaultInfo,
+  ...BlogRoute.Route,
+})
+export const Pricing = makeRoute(PricingRoute.PATH, {
+  ...defaultInfo,
+  ...PricingRoute.Route,
 })
