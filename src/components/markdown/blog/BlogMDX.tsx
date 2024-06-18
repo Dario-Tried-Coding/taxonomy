@@ -1,5 +1,5 @@
-import { Callout } from "@/components/mdx/blog/MDXCallout";
-import { MdxCard } from "@/components/mdx/blog/MDXCard";
+import { MDXCallout } from "@/components/markdown/blog/MDXCallout";
+import { MDXCard } from "@/components/markdown/blog/MDXCard";
 import { cn } from "@/lib/utils";
 import { MDXComponents } from "mdx/types";
 import Image from 'next/image';
@@ -46,8 +46,8 @@ const components: MDXComponents = {
     <code className={cn('relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm', className)} {...props} />
   ),
   Image,
-  Callout,
-  Card: MdxCard,
+  Callout: MDXCallout,
+  Card: MDXCard,
 }
 
 interface BlogMDXProps {

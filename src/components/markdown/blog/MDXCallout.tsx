@@ -8,7 +8,7 @@ interface CalloutProps extends HTMLAttributes<HTMLDivElement> {
 
 // TODO: Implement warning color
 
-export function Callout({ children, icon, type = 'default', ...props }: CalloutProps) {
+export function MDXCallout({ children, icon, type = 'default', ...props }: CalloutProps) {
   return (
     <div
       className={cn('my-6 flex items-start rounded-md border border-l-4 p-4', {

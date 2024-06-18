@@ -8,7 +8,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean
 }
 
-export function MdxCard({ href, className, children, disabled, ...props }: CardProps) {
+export function MDXCard({ href, className, children, disabled, ...props }: CardProps) {
   const t = useTranslations()
 
   return (
