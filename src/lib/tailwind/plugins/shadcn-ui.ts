@@ -80,6 +80,20 @@ export const shadcnPlugin = plugin(
             950: withOpacity('--negative-950'),
             1000: withOpacity('--negative-1000'),
           },
+          alert: {
+            50: withOpacity('--alert-50'),
+            100: withOpacity('--alert-100'),
+            200: withOpacity('--alert-200'),
+            300: withOpacity('--alert-300'),
+            400: withOpacity('--alert-400'),
+            500: withOpacity('--alert-500'),
+            600: withOpacity('--alert-600'),
+            700: withOpacity('--alert-700'),
+            800: withOpacity('--alert-800'),
+            900: withOpacity('--alert-900'),
+            950: withOpacity('--alert-950'),
+            1000: withOpacity('--alert-1000'),
+          },
           background: withOpacity('--background'),
           foreground: withOpacity('--foreground'),
           primary: {
@@ -101,6 +115,10 @@ export const shadcnPlugin = plugin(
           destructive: {
             DEFAULT: withOpacity('--destructive'),
             foreground: withOpacity('--destructive-foreground'),
+          },
+          warning: {
+            DEFAULT: withOpacity('--warning'),
+            foreground: withOpacity('--warning-foreground'),
           },
           popover: {
             DEFAULT: withOpacity('--popover'),

@@ -59,6 +59,20 @@
     --red-900: 0, 62.8%, 30.6%;
     --red-950: 0, 74.7%, 15.5%;
     --red-1000: 0, 74.7%, 5%;
+
+    /* yellow */
+    --yellow-50: 54.5, 91.7%, 95.3%;
+    --yellow-100: 54.9, 96.7%, 88%;
+    --yellow-200: 52.8, 98.3%, 76.9%;
+    --yellow-300: 50.4, 97.8%, 63.5%;
+    --yellow-400: 47.9, 95.8%, 53.1%;
+    --yellow-500: 45.4, 93.4%, 47.5%;
+    --yellow-600: 40.6, 96.1%, 40.4%;
+    --yellow-700: 35.5, 91.7%, 32.9%;
+    --yellow-800: 31.8, 81%, 28.8%;
+    --yellow-900: 28.4, 72.5%, 25.7%;
+    --yellow-950: 26, 83.3%, 14.1%;
+    --yellow-1000: 26, 83.3%, 7.1%;
   }
 
   [data-theme='default'] {
@@ -115,6 +129,19 @@
     --negative-950: var(--red-950);
     --negative-1000: var(--red-1000);
 
+    --alert-50: var(--yellow-50);
+    --alert-100: var(--yellow-100);
+    --alert-200: var(--yellow-200);
+    --alert-300: var(--yellow-300);
+    --alert-400: var(--yellow-400);
+    --alert-500: var(--yellow-500);
+    --alert-600: var(--yellow-600);
+    --alert-700: var(--yellow-700);
+    --alert-800: var(--yellow-800);
+    --alert-900: var(--yellow-900);
+    --alert-950: var(--yellow-950);
+    --alert-1000: var(--yellow-1000);
+
     --background: var(--base-50);
     --foreground: var(--base-900);
     --primary: var(--base-900);
@@ -127,6 +154,8 @@
     --accent-foreground: var(--base-900);
     --destructive: var(--negative-500);
     --destructive-foreground: var(--base-50);
+    --warning: var(--alert-500);
+    --warning-foreground: var(--base-50);
     --popover: var(--neutral);
     --popover-foreground: var(--base-900);
     --card: var(--neutral);
@@ -188,6 +217,19 @@
     --negative-200: var(--red-900);
     --negative-100: var(--red-950);
     --negative-50: var(--red-1000);
+    
+    --alert-1000: var(--yellow-50);
+    --alert-950: var(--yellow-100);
+    --alert-900: var(--yellow-200);
+    --alert-800: var(--yellow-300);
+    --alert-700: var(--yellow-400);
+    --alert-600: var(--yellow-500);
+    --alert-500: var(--yellow-600);
+    --alert-400: var(--yellow-700);
+    --alert-300: var(--yellow-800);
+    --alert-200: var(--yellow-900);
+    --alert-100: var(--yellow-950);
+    --alert-50: var(--yellow-1000);
 
     --background: var(--complementary-100);
     --foreground: var(--complementary-900);
@@ -201,6 +243,8 @@
     --accent-foreground: var(--base-1000);
     --destructive: var(--negative-300);
     --destructive-foreground: var(--complementary-1000);
+    --warning: var(--alert-300);
+    --warning-foreground: var(--complementary-1000);
     --popover: var(--complementary-50);
     --popover-foreground: var(--base-700);
     --card: var(--complementary-50);
