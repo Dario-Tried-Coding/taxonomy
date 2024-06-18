@@ -32,6 +32,13 @@
     },
     "Footer": {
       "footnote": "Realizzato da <twitter></twitter>. Ospitato su <vercel>Vercel</vercel>. Illustrazioni di <popsy>Popsy</popsy>. Codice sorgente disponibile su <github>GitHub</github>."
+    },
+    "Blog": {
+      "MDX": {
+        "Card": {
+          "view": "Mostra"
+        }
+      }
     }
   },
   "Pages": {
@@ -112,6 +119,17 @@
           "cta": "Inizia"
         },
         "foot-note": "Taxonomy è solo una demo. <bold>Puoi tranquillamente passare a PRO e non ti sarà addebitato nulla.</bold>"
+      }
+    },
+    "Blog": {
+      "Metadata": {
+        "title": "Blog"
+      },
+      "UI": {
+        "heading": "Blog",
+        "sub-heading": "Un blog costruito con content-collections. I post sono scritti in MDX.",
+        "read-article": "Leggi l'articolo",
+        "no-posts": "Nessun post trovato."
       }
     }
   }

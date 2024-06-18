@@ -1,15 +1,16 @@
 
 import { Link } from '@/lib/next-intl/navigation'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   href?: string
   disabled?: boolean
 }
 
-// TODO: Implement i18n
-
 export function MdxCard({ href, className, children, disabled, ...props }: CardProps) {
+  const t = useTranslations()
+
   return (
     <div
       className={cn(
@@ -24,7 +25,7 @@ export function MdxCard({ href, className, children, disabled, ...props }: CardP
       </div>
       {href && (
         <Link href={disabled ? '#' : href} className='absolute inset-0'>
-          <span className='sr-only'>View</span>
+          <span className='sr-only'>{t('Components.Blog.MDX.Card.view')}</span>
         </Link>
       )}
     </div>

@@ -1,0 +1,231 @@
+---
+title: Server e Client Components
+description: React Server Components permettono di lavorare tra client e server senza soluzione di continuità.
+image: public/images/blog/posts/post-4.jpg
+date: "2023-01-08"
+author: dario-tried-coding
+---
+
+<Callout>
+  Il testo qui sotto è tratto dalla documentazione di [Tailwind
+  CSS](https://play.tailwindcss.com/uj1vGACRJA?layout=preview). L'ho copiato
+  qui per testare gli stili markdown. **Tailwind è fantastico. Dovresti usarlo.**
+</Callout>
+
+Fino ad ora, cercare di stilizzare un articolo, un documento o un post di blog con Tailwind è stato un compito tedioso che richiedeva un occhio attento alla tipografia e molto complesso CSS personalizzato.
+
+Per impostazione predefinita, Tailwind rimuove tutta la stilizzazione predefinita del browser da paragrafi, intestazioni, liste e altro. Questo risulta essere molto utile per costruire interfacce utente di applicazioni perché si passa meno tempo a disfare gli stili dell'agente utente, ma quando *davvero si cerca* solo di stilizzare qualche contenuto proveniente da un editor di testo ricco in un CMS o un file markdown, può essere sorprendente e non intuitivo.
+
+Riceviamo molte lamentele a riguardo, con persone che ci chiedono regolarmente cose come:
+
+> Perché Tailwind rimuove gli stili predefiniti sui miei elementi `h1`? Come posso disabilitarlo? Cosa intendi dire che perdo anche tutti gli altri stili di base?
+> Ti sentiamo, ma non siamo convinti che disabilitare semplicemente i nostri stili di base sia ciò che vuoi veramente. Non vuoi dover rimuovere margini fastidiosi ogni volta che usi un elemento `p` in un pezzo della tua interfaccia utente del cruscotto. E dubito che tu voglia davvero che i tuoi post sul blog usino gli stili dell'agente utente — vuoi che abbiano un aspetto *fantastico*, non terribile.
+
+Il plugin `@tailwindcss/typography` è il nostro tentativo di darti ciò che *veramente* vuoi, senza nessuno degli svantaggi di fare qualcosa di stupido come disabilitare i nostri stili di base.
+
+Aggiunge una nuova classe `prose` che puoi applicare a qualsiasi blocco di contenuto HTML semplice e trasformarlo in un documento bello e ben formattato:
+
+```html
+<article class="prose">
+  <h1>Pane all'aglio con formaggio: Cosa ci dice la scienza</h1>
+  <p>
+    Per anni i genitori hanno sostenuto i benefici per la salute di mangiare pane
+    all'aglio con formaggio ai loro figli, con il cibo che ha guadagnato uno status
+    iconico nella nostra cultura al punto che i bambini spesso si vestono come
+    pagnotte calde e formaggiose per Halloween.
+  </p>
+  <p>
+    Ma un recente studio mostra che l'antipasto celebrato potrebbe essere collegato a una
+    serie di casi di rabbia che stanno emergendo in tutto il paese.
+  </p>
+</article>
+```
+
+Per maggiori informazioni su come utilizzare il plugin e le caratteristiche che include, [leggi la documentazione](https://github.com/tailwindcss/typography/blob/master/README.md).
+
+---
+
+## Cosa aspettarsi da qui in poi
+
+Quello che segue è solo una serie di assurdità assolute che ho scritto per testare il plugin stesso. Include ogni elemento tipografico sensato che mi è venuto in mente, come testo in **grassetto**, liste non ordinate, liste ordinate, blocchi di codice, citazioni in blocco, *e persino corsivo*.
+
+È importante coprire tutti questi casi d'uso per alcune ragioni:
+
+1. Vogliamo che tutto abbia un bell'aspetto fuori dalla scatola.
+
+2. Davvero solo la prima ragione, è tutto il punto del plugin.
+
+3. Ecco una terza ragione finta anche se una lista con tre elementi sembra più realistica di una lista con due elementi.
+
+Ora proveremo un altro stile di intestazione.
+
+### La tipografia dovrebbe essere facile
+
+Quindi questa è un'intestazione per te — con un po' di fortuna, se abbiamo fatto bene il nostro lavoro, avrà un aspetto piuttosto ragionevole.
+
+Qualcosa che una persona saggia mi ha detto una volta sulla tipografia è:
+
+> La tipografia è piuttosto importante se non vuoi che le tue cose sembrino spazzatura. Falla bene e non sarà cattiva.
+
+Probabilmente è importante che le immagini abbiano un bell'aspetto anche qui per impostazione predefinita:
+
+<Image src="public/images/blog/posts/post-1.jpg" alt="Immagine" width={718} height={404} />
+
+Contrariamente alla credenza popolare, Lorem Ipsum non è semplicemente testo casuale. Ha radici in un pezzo di letteratura latina classica del 45 a.C., rendendolo vecchio di oltre 2000 anni.
+
+Ora ti mostrerò un esempio di una lista non ordinata per assicurarmi che anche quella abbia un bell'aspetto:
+
+* Quindi ecco il primo elemento di questa lista.
+
+* In questo esempio stiamo mantenendo gli elementi brevi.
+
+* Più tardi, utilizzeremo elementi di lista più lunghi e complessi.
+
+E questo è la fine di questa sezione.
+
+## E se impilassimo le intestazioni?
+
+### Dovremmo assicurarci che anche questo abbia un bell'aspetto.
+
+A volte hai intestazioni direttamente una sotto l'altra. In questi casi spesso devi annullare il margine superiore sulla seconda intestazione perché di solito è meglio che le intestazioni siano più vicine tra loro rispetto a un paragrafo seguito da un'intestazione.
+
+### Quando un'intestazione segue un paragrafo …
+
+Quando un'intestazione segue un paragrafo, abbiamo bisogno di un po' più di spazio, come ho già menzionato sopra. Ora vediamo come sarebbe una lista più complessa.
+
+* **Spesso faccio questa cosa in cui gli elementi della lista hanno intestazioni.**
+
+  Per qualche motivo penso che questo sembri bello, il che è sfortunato perché è piuttosto fastidioso ottenere gli stili giusti.
+
+  Spesso ho due o tre paragrafi in questi elementi della lista, quindi la parte difficile è ottenere lo spazio tra i paragrafi, l'intestazione dell'elemento della lista e i singoli elementi della lista in modo che abbiano tutti un senso. Piuttosto difficile onestamente, potresti fare un forte argomento sul fatto che non dovresti scrivere in questo modo.
+
+* **Dato che questa è una lista, ho bisogno di almeno due elementi.**
+
+  Ho già spiegato cosa sto facendo nell'elemento della lista precedente, ma una lista non sarebbe una lista se avesse solo un elemento, e vogliamo davvero che questo sembri realistico. Ecco perché ho aggiunto questo secondo elemento della lista in modo da avere effettivamente qualcosa da guardare quando scrivo gli stili.
+
+* **Non è una cattiva idea aggiungere anche un terzo elemento.**
+
+  Penso che probabilmente sarebbe andato bene usare solo due elementi, ma tre non sono sicuramente peggiori, e dato che non sembra che abbia problemi a inventare cose arbitrarie da scrivere, tanto vale includerlo.
+
+Dopo questo tipo di lista di solito ho una dichiarazione di chiusura o un paragrafo, perché sembra un po' strano saltare direttamente a un'intestazione.
+
+## Il codice dovrebbe avere un bell'aspetto per impostazione predefinita.
+
+Penso che la maggior parte delle persone utilizzerà [highlight.js](https://highlightjs.org/) o [Prism](https://prismjs.com/) o qualcosa di simile se vogliono
+
+stilizzare i loro blocchi di codice, ma non farebbe male farli sembrare *ok* anche senza evidenziazione della sintassi.
+
+Ecco come appare un file `tailwind.config.js` predefinito al momento della scrittura:
+
+```js
+module.exports = {
+  purge: [],
+  theme: {
+    extend: {},
+  },
+  variants: {},
+  plugins: [],
+}
+```
+
+Spero che abbia un aspetto abbastanza buono per te.
+
+### E le liste nidificate?
+
+Le liste nidificate in genere hanno sempre un brutto aspetto, motivo per cui editor come Medium non ti permettono nemmeno di farlo, ma immagino che poiché alcuni di voi goofballs lo faranno, dobbiamo sopportare il peso di almeno farlo funzionare.
+
+1. **Le liste nidificate sono raramente una buona idea.**
+
+   * Potresti pensare di essere davvero "organizzato" o qualcosa del genere, ma stai solo creando una forma grossolana sullo schermo che è difficile da leggere.
+
+   * La navigazione nidificata nelle interfacce utente è una cattiva idea, mantieni le cose il più piatte possibile.
+
+   * Annidare tonnellate di cartelle nel tuo codice sorgente non è nemmeno utile.
+
+2. **Dato che abbiamo bisogno di più elementi, eccone un altro.**
+
+   * Non sono sicuro se ci prenderemo la briga di stilizzare più di due livelli di profondità.
+
+   * Due sono già troppi, tre sono garantiti per essere una cattiva idea.
+
+   * Se annidi quattro livelli di profondità meriti di andare in prigione.
+
+3. **Due elementi non sono davvero una lista, tre invece vanno bene.**
+
+   * Ancora una volta, per favore non annidare liste se vuoi che le persone leggano effettivamente il tuo contenuto.
+
+   * Nessuno vuole guardare questo.
+
+   * Sono arrabbiato di doverci preoccupare di stilizzare questo.
+
+La cosa più fastidiosa delle liste in Markdown è che gli elementi `<li>` non hanno un tag figlio `<p>` a meno che non ci siano più paragrafi nell'elemento della lista. Ciò significa che devo preoccuparmi di stilizzare anche questa situazione fastidiosa.
+
+* **Ad esempio, ecco un'altra lista nidificata.**
+
+  Ma questa volta con un secondo paragrafo.
+
+  * Questi elementi della lista non avranno tag `<p>`
+
+  * Perché sono solo una riga ciascuno
+
+* **Ma in questo secondo elemento della lista di primo livello, li avranno.**
+
+  Questo è particolarmente fastidioso a causa dello spazio in questo paragrafo.
+
+  * Come puoi vedere qui, poiché ho aggiunto una seconda riga, questo elemento della lista ora ha un tag `<p>`.
+
+    Questa è la seconda riga di cui sto parlando, tra l'altro.
+
+  * Infine, ecco un altro elemento della lista, quindi sembra più una lista.
+
+* Un elemento di chiusura della lista, ma senza una lista nidificata, perché no?
+
+E infine una frase per chiudere questa sezione.
+
+## Ci sono altri elementi che dobbiamo stilizzare
+
+Mi sono quasi dimenticato di menzionare i link, come [questo link al sito web di Tailwind CSS](https://tailwindcss.com). Abbiamo quasi deciso di farli blu, ma è così antiquato, quindi abbiamo optato per il grigio scuro, sembra più audace.
+
+Abbiamo incluso anche gli stili per le tabelle, dai un'occhiata:
+
+| Wrestler                | Origin       | Finisher           |
+| ----------------------- | ------------ | ------------------ |
+| Bret "The Hitman" Hart  | Calgary, AB  | Sharpshooter       |
+| Stone Cold Steve Austin | Austin, TX   | Stone Cold Stunner |
+| Randy Savage            | Sarasota, FL | Elbow Drop         |
+| Vader                   | Boulder, CO  | Vader Bomb         |
+| Razor Ramon             | Chuluota, FL | Razor's Edge       |
+
+Dobbiamo anche assicurarci che il codice inline abbia un bell'aspetto, come se volessi parlare degli elementi `<span>` o darti buone notizie su `@tailwindcss/typography`.
+
+### A volte uso anche `code` nelle intestazioni
+
+Anche se probabilmente è una cattiva idea, e storicamente ho avuto difficoltà a farlo sembrare buono. Questo trucco di *"avvolgere i blocchi di codice tra backtick"* funziona piuttosto bene, però.
+
+Un'altra cosa che ho fatto in passato è mettere un tag `code` all'interno di un link, come se volessi parlarti del repository [`tailwindcss/docs`](https://github.com/tailwindcss/docs). Non mi piace che ci sia una sottolineatura sotto i backtick, ma non vale la follia che richiederebbe per evitarlo.
+
+#### Non abbiamo ancora usato un `h4`
+
+Ma ora l'abbiamo fatto. Per favore, non usare `h5` o `h6` nel tuo contenuto, Medium supporta solo due livelli di intestazione per una ragione, animali. Ho onestamente considerato l'idea di usare un pseudo-elemento `before` per urlarti contro se usi un `h5` o `h6`.
+
+Non li stiliamo affatto fuori dalla scatola perché gli elementi `h4` sono già così piccoli che sono della stessa dimensione del testo del corpo. Cosa dovremmo fare con un `h5`, renderlo *più piccolo* del testo del corpo? No grazie.
+
+### Dobbiamo ancora pensare alle intestazioni impilate, però.
+
+#### Assicuriamoci di non rovinare neanche questo con gli elementi `h4`.
+
+Phew, con un po' di fortuna abbiamo stilizzato le intestazioni sopra questo testo e hanno un bell'aspetto.
+
+Aggiungiamo un paragrafo di chiusura qui in modo che le cose finiscano con un blocco di testo di dimensioni decenti. Non posso spiegare perché voglio che le cose finiscano così, ma devo presumere che sia perché penso che le cose sembreranno strane o sbilanciate se c'è un'intestazione troppo vicina alla fine del documento.
+
+Quello che ho scritto qui è probabilmente abbastanza lungo, ma aggiungere questa frase finale non può far male.
+
+## Markdown alla maniera di GitHub
+
+Ho anche aggiunto il supporto per il Markdown alla maniera di GitHub usando `remark-gfm`.
+
+Con `remark-gfm`, otteniamo alcune funzionalità extra nel nostro markdown. Ad esempio: collegamenti automatici.
+
+Un link come [www.example.com](http://www.example.com) o [https://example.com](https://example.com) verrebbe automaticamente convertito in un tag `a`.
+
+Questo funziona anche per i collegamenti email: [contact@example.com](mailto:contact@example.com).
