@@ -1,4 +1,5 @@
 import { buttonVariants } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/badge'
 import { proPlan } from '@/config/pages/pricing.config'
 import { Locale } from '@/lib/next-intl/config'
 import { cn } from '@/lib/utils'
@@ -33,17 +34,15 @@ const Page: FC<pageProps> = ({ params: { locale } }) => {
     <section className='container flex flex-col gap-6 py-8 md:max-w-[64rem] md:py-12 lg:py-24'>
       <div className='mx-auto flex w-full flex-col gap-4 md:max-w-[58rem]'>
         <h1 className='font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl'>{t('Pages.Pricing.UI.heading')}</h1>
-        <p className='max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7'>
-          {t('Pages.Pricing.UI.sub-heading')}
-        </p>
+        <p className='max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7'>{t('Pages.Pricing.UI.sub-heading')}</p>
       </div>
       <div className='grid w-full items-start gap-10 rounded-lg border p-10 md:grid-cols-[1fr_200px]'>
         <div className='grid gap-6'>
           <h3 className='text-xl font-bold sm:text-2xl'>{t('Pages.Pricing.UI.ProPlan.heading')}</h3>
           <ul className='grid gap-3 text-sm text-muted-foreground sm:grid-cols-2'>
             {proPlan.map((item, i) => (
-              <li key={i} className={cn('flex items-center', item.enabled === false && 'line-through opacity-50')}>
-                <Check className='mr-2 h-4 w-4' /> {t(item.label)}
+              <li key={i} className={cn('flex items-center gap-2', item.disabled && 'opacity-50')}>
+                <Check className='h-4 w-4' /> {t(item.label)} {item.disabled && <Badge variant='outline'>{t('Pages.Pricing.UI.ProPlan.Features.soon')}</Badge>}
               </li>
             ))}
           </ul>

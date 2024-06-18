@@ -112,7 +112,8 @@
             "custom-domain": "Dominio personalizzato",
             "dashboard-analytics": "Dashboard e analitiche",
             "discord": "Accesso alla community Discord",
-            "premium-support": "Supporto premium"
+            "premium-support": "Supporto premium",
+            "soon": "In arrivo"
           },
           "price": "€{price}",
           "period": "al mese",

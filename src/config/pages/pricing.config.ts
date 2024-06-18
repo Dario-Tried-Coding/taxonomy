@@ -2,7 +2,7 @@ import { I18nKeys } from "@/types/utils"
 
 type ProPlanFeature = {
   label: I18nKeys
-  enabled?: boolean
+  disabled?: boolean
 }
 export const proPlan: ProPlanFeature[] = [
   {
@@ -10,22 +10,22 @@ export const proPlan: ProPlanFeature[] = [
   },
   {
     label: 'Pages.Pricing.UI.ProPlan.Features.unlimited-users',
-    enabled: false,
+    disabled: true,
   },
   {
     label: 'Pages.Pricing.UI.ProPlan.Features.custom-domain',
-    enabled: false,
+    disabled: true,
   },
   {
     label: 'Pages.Pricing.UI.ProPlan.Features.dashboard-analytics',
-    enabled: false,
+    disabled: true,
   },
   {
     label: 'Pages.Pricing.UI.ProPlan.Features.discord',
-    enabled: false,
+    disabled: true,
   },
   {
     label: 'Pages.Pricing.UI.ProPlan.Features.premium-support',
-    enabled: false,
+    disabled: true,
   },
 ]
