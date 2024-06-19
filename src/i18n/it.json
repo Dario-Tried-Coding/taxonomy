@@ -45,8 +45,8 @@
     "Home": {
       "Hero": {
         "follow-along": "Segui su Twitter",
-        "heading": "Una app open-source per mostrare il meglio di Next.js 14",
-        "sub-heading": "Sto realizzando una web app con Next.js 14 del tutto open source. Segui lo sviluppo su Twitter man mano che capiamo e proviamo insieme come funziona il tutto.",
+        "heading": "Una app per mostrare il meglio che Next.js 14 ha da offrire",
+        "sub-heading": "Sto realizzando una web app condividendo tutto il processo. Segui lo sviluppo su Twitter man mano che realizziamo il tutto.",
         "buttons": {
           "get-started": "Inizia ora",
           "github": "Github"
@@ -87,6 +87,10 @@
           "Theming": {
             "title": "Tematizzazione avanzata",
             "description": "Supporto per avanzata tematizzazione della UI."
+          },
+          "Monitoring": {
+            "title": "Monitoraggio",
+            "description": "Monitoraggio bug e errori in tempo reale con Sentry.io."
           }
         },
         "footnote": "Taxonomy include inoltre un blog e un completo sistema di documentazione, realizzati utilizzando Contentlayer e MDX."
@@ -113,7 +117,7 @@
             "dashboard-analytics": "Dashboard e analitiche",
             "discord": "Accesso alla community Discord",
             "premium-support": "Supporto premium",
-            "soon": "In arrivo"
+            "soon": "Presto"
           },
           "price": "€{price}",
           "period": "al mese",

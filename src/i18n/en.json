@@ -45,7 +45,7 @@
     "Home": {
       "Hero": {
         "follow-along": "Follow on Twitter",
-        "heading": "An open-source app showcasing the best of Next.js 14",
+        "heading": "An app showcasing the best Next.js 14 has to offer",
         "sub-heading": "I'm building a fully open-source web app with Next.js 14. Follow the development on Twitter as we explore and learn together.",
         "buttons": {
           "get-started": "Get Started",
@@ -87,6 +87,10 @@
           "Theming": {
             "title": "Advanced Theming",
             "description": "Support for advanced UI theming."
+          },
+          "Monitoring": {
+            "title": "Monitoring",
+            "description": "Real-time bug & error monitoring with Sentry.io."
           }
         },
         "footnote": "Taxonomy also includes a blog and a comprehensive documentation system, built using Contentlayer and MDX."

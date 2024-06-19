@@ -4,7 +4,7 @@ import { proPlan } from '@/config/pages/pricing.config'
 import { Locale } from '@/lib/next-intl/config'
 import { cn } from '@/lib/utils'
 import { SignIn } from '@/routes'
-import { Check } from 'lucide-react'
+import { Check, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale as setRequestLocale } from 'next-intl/server'
 import { FC } from 'react'
@@ -39,10 +39,12 @@ const Page: FC<pageProps> = ({ params: { locale } }) => {
       <div className='grid w-full items-start gap-10 rounded-lg border p-10 md:grid-cols-[1fr_200px]'>
         <div className='grid gap-6'>
           <h3 className='text-xl font-bold sm:text-2xl'>{t('Pages.Pricing.UI.ProPlan.heading')}</h3>
-          <ul className='grid gap-3 text-sm text-muted-foreground sm:grid-cols-2'>
+          <ul className='grid gap-3 gap-x-6 text-sm text-muted-foreground sm:grid-cols-2'>
             {proPlan.map((item, i) => (
-              <li key={i} className={cn('flex items-center gap-2', item.disabled && 'opacity-50')}>
-                <Check className='h-4 w-4' /> {t(item.label)} {item.disabled && <Badge variant='outline'>{t('Pages.Pricing.UI.ProPlan.Features.soon')}</Badge>}
+              <li key={i} className={cn('flex items-center justify-start gap-2', item.disabled && 'opacity-50')}>
+                {item.disabled ? <X className='h-4 w-4 shrink-0' /> : <Check className='h-4 w-4 shrink-0' />}
+                <span className="flex-1">{t(item.label)}</span>
+                {item.disabled && <Badge variant='outline'>{t('Pages.Pricing.UI.ProPlan.Features.soon')}</Badge>}
               </li>
             ))}
           </ul>
