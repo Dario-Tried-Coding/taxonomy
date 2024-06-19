@@ -57,6 +57,7 @@ export async function generateMetadata({ params: { locale } }: Omit<Props, 'chil
           width: 1200,
           height: 630,
           alt: siteConfig.name.full,
+          type: 'image/jpeg'
         },
       ],
     },
