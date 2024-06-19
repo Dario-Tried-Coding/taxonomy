@@ -6,6 +6,8 @@ import Providers from '@/components/providers/Providers.server'
 import { Inter as FontSans } from 'next/font/google'
 import localFont from 'next/font/local'
 import { cn } from '@/lib/utils'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import '@/styles/globals.css'
 
 const fontSans = FontSans({
@@ -39,7 +41,11 @@ export default function RootLayout({ children, params: { locale } }: Readonly<Pr
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={cn('min-h-screen font-sans antialiased', fontSans.variable, fontHeading.variable)}>
-        <Providers locale={locale}>{children}</Providers>
+        <Providers locale={locale}>
+          <Analytics />
+          <SpeedInsights />
+          {children}
+        </Providers>
       </body>
     </html>
   )
