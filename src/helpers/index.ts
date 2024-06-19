@@ -1,12 +1,13 @@
 import { siteConfig } from '@/config/site.config'
 import { Locale } from '@/lib/next-intl/config'
+import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
 interface Params {
   locale: Locale
 }
 
-export async function constructMetadata({ locale }: Params) {
+export async function constructMetadata({ locale }: Params):Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'Project'})
   return {
     title: {
@@ -18,7 +19,7 @@ export async function constructMetadata({ locale }: Params) {
     authors: [
       {
         name: siteConfig.author.name,
-        url: siteConfig.author.url,
+        url: siteConfig.author.website,
       },
     ],
     creator: siteConfig.author.name,
@@ -34,14 +35,14 @@ export async function constructMetadata({ locale }: Params) {
       card: 'summary_large_image',
       title: siteConfig.name.full,
       description: t('description'),
-      images: [`${siteConfig.url}/og.jpg`],
+      images: [`${siteConfig.url}/meta/poster.jpg`],
       creator: siteConfig.twitter.username,
     },
     icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon-16x16.png',
-      apple: '/apple-touch-icon.png',
+      icon: '/meta/favicon.ico',
+      shortcut: '/meta/favicon-16x16.png',
+      apple: '/meta/apple-touch-icon.png',
     },
-    manifest: `${siteConfig.url}/site.webmanifest`,
+    manifest: `/meta/site.webmanifest`,
   }
 }

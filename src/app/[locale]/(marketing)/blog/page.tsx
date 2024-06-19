@@ -1,18 +1,31 @@
+import { setRequestLocale } from '@/lib/next-intl'
 import { Locale } from '@/lib/next-intl/config'
 import { Link } from '@/lib/next-intl/navigation'
+import { BlogPost } from '@/routes'
 import { allPosts } from 'content-collections'
 import { compareDesc } from 'date-fns'
 import { useFormatter, useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import { FC } from 'react'
 
-interface pageProps {
+interface PageProps {
   params: {
     locale: Locale
   }
 }
 
-const page: FC<pageProps> = ({ params: { locale } }) => {
+export async function generateMetadata({ params: { locale } }: PageProps) {
+  const t = await getTranslations({locale})
+
+  return {
+    title: t('Pages.Blog.Metadata.title')
+  }
+}
+
+const Page: FC<PageProps> = ({ params: { locale } }) => {
+  setRequestLocale(locale)
+
   const t = useTranslations()
   const format = useFormatter()
 
@@ -49,9 +62,9 @@ const page: FC<pageProps> = ({ params: { locale } }) => {
                 {post.date && (
                   <p className='text-sm text-muted-foreground'>{format.dateTime(publishDate, { year: 'numeric', month: 'short', day: 'numeric' })}</p>
                 )}
-                <Link href={post._meta.path.replace(`.${locale}`, '')} className='absolute inset-0'>
+                <BlogPost.Link postName={post._meta.path.replace(`.${locale}`, '')} className='absolute inset-0'>
                   <span className='sr-only'>{t('Pages.Blog.UI.read-article')}</span>
-                </Link>
+                </BlogPost.Link>
               </article>
             )
           })}
@@ -63,4 +76,4 @@ const page: FC<pageProps> = ({ params: { locale } }) => {
   )
 }
 
-export default page
+export default Page

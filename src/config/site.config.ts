@@ -1,3 +1,5 @@
+import { absoluteUrl } from "@/helpers/routing"
+
 export const siteConfig = {
   name: {
     full: 'Taxonomy | Dario Tried Coding',
@@ -5,7 +7,7 @@ export const siteConfig = {
   },
   author: {
     name: 'Dario Tried Coding',
-    url: 'https://dariotriedcoding.com',
+    website: 'https://dariotriedcoding.com',
   },
   twitter: {
     url: 'https://twitter.com/dariotriedx',
@@ -14,8 +16,7 @@ export const siteConfig = {
   github: {
     url: 'https://github.com/dariocorbinelli/taxonomy',
   },
-  url: 'https://tx.dariotriedcoding.com',
-  ogImage: 'https://tx.dariotriedcoding.com/og.jpg',
+  url: absoluteUrl(''),
 } as const
 
 export type siteConfig = typeof siteConfig

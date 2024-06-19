@@ -1,5 +1,5 @@
 import { buttonVariants } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import { proPlan } from '@/config/pages/pricing.config'
 import { Locale } from '@/lib/next-intl/config'
 import { cn } from '@/lib/utils'

@@ -37,7 +37,7 @@ export default function RootLayout({ children, params: { locale } }: Readonly<Pr
   setRequestLocale(locale)
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body className={cn('min-h-screen font-sans antialiased', fontSans.variable, fontHeading.variable)}>
         <Providers locale={locale}>{children}</Providers>
       </body>

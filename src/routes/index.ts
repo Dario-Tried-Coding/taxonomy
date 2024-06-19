@@ -11,6 +11,7 @@ import * as DocsRoute from '@/app/[locale]/docs/[[...slugs]]/page.info'
 import * as SignInRoute from '@/app/[locale]/auth/sign-in/page.info'
 import * as BlogRoute from '@/app/[locale]/(marketing)/blog/page.info'
 import * as PricingRoute from '@/app/[locale]/(marketing)/pricing/page.info'
+import * as BlogPostRoute from '@/app/[locale]/(marketing)/blog/[postName]/page.info'
 
 export const Home = makeRoute(HomeRoute.PATH, {
   ...defaultInfo,
@@ -31,4 +32,8 @@ export const Blog = makeRoute(BlogRoute.PATH, {
 export const Pricing = makeRoute(PricingRoute.PATH, {
   ...defaultInfo,
   ...PricingRoute.Route,
+})
+export const BlogPost = makeRoute(BlogPostRoute.PATH, {
+  ...defaultInfo,
+  ...BlogPostRoute.Route,
 })
