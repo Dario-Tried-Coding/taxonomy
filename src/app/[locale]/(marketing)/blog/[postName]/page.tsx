@@ -1,4 +1,4 @@
-import { absoluteUrl } from '@/helpers/routing'
+import { siteConfig } from '@/config/site.config'
 import { getBlogPostName } from '@/lib/helpers/keystatic'
 import { setRequestLocale } from '@/lib/next-intl'
 import { Locale } from '@/lib/next-intl/config'
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps):Promise<Metadata> 
 
   if (!post) return {}
 
-  const ogUrl = new URL(absoluteUrl('/api/og'))
+  const ogUrl = new URL(`${siteConfig.url}/meta/poster`)
   ogUrl.searchParams.set('heading', post.title)
   ogUrl.searchParams.set('type', 'Blog Post')
   ogUrl.searchParams.set('mode', 'dark')
@@ -43,26 +43,27 @@ export async function generateMetadata({ params }: PageProps):Promise<Metadata> 
     title: post.title,
     description: post.description,
     authors: [{ name: post.author.name }],
+    metadataBase: new URL(siteConfig.url),
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
-      url: absoluteUrl(post._meta.filePath),
+      url: `${siteConfig.url}/blog/${getBlogPostName(post._meta.path)}`,
       images: [
         {
           url: ogUrl.toString(),
           width: 1200,
           height: 630,
           alt: post.title,
-        }
-      ]
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: [ogUrl.toString()]
-    }
+      images: [ogUrl.toString()],
+    },
   }
 }
 

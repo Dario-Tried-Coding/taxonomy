@@ -2,13 +2,12 @@ import { buttonVariants } from '@/components/ui/Button'
 import { features } from '@/config/pages/home.config'
 import { siteConfig } from '@/config/site.config'
 import { env } from '@/lib/env'
+import { Locale } from '@/lib/next-intl/config'
 import { cn } from '@/lib/utils'
 import { SignIn } from '@/routes'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, unstable_setRequestLocale as setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
 import { FC, HTMLAttributes, ReactNode } from 'react'
-import { unstable_setRequestLocale as setRequestLocale } from 'next-intl/server'
-import { Locale } from '@/lib/next-intl/config'
 
 async function getGithubStars(): Promise<string | null> {
   try {
@@ -52,7 +51,6 @@ const page: FC<pageProps> = async ({ params: { locale } }) => {
           <Link href={siteConfig.twitter.url} target='_blank' className='rounded-2xl bg-muted px-4 py-1.5 text-sm font-medium'>
             {t('Pages.Home.Hero.follow-along')}
           </Link>
-          {process.env.NEXT_PUBLIC_VERCEL_ENV} {process.env.NEXT_PUBLIC_VERCEL_URL} {process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}
           <h1 className='font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl'>{t('Pages.Home.Hero.heading')}</h1>
           <p className='max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8'>{t('Pages.Home.Hero.sub-heading')}</p>
           <div className='space-x-4'>
