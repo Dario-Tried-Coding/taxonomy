@@ -3,6 +3,8 @@ import { Callout, Image } from '@/lib/keystatic/components'
 import { collection, config, fields } from '@keystatic/core'
 import NextImage from 'next/image'
 
+export const showAdminUI = process.env.NODE_ENV === 'development'
+
 export default config({
   ui: {
     brand: { name: siteConfig.name.short, mark: () => <NextImage src='/favicon-16x16.png' alt={siteConfig.name.short} width={16} height={16} /> },
