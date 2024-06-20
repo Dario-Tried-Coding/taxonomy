@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!post) return {}
 
-  const ogUrl = new URL(`${siteConfig.url}/meta/poster`)
+  const ogUrl = new URL(`${siteConfig.url}/api/og`)
   ogUrl.searchParams.set('heading', post.title)
   ogUrl.searchParams.set('type', 'Blog Post')
   ogUrl.searchParams.set('mode', 'dark')

@@ -15,6 +15,7 @@ export const siteConfig = {
   },
   github: {
     url: 'https://github.com/dariocorbinelli/taxonomy',
+    urlShort: 'github.com/dariocorbinelli/taxonomy',
   },
   url: absoluteUrl(''),
 } as const
