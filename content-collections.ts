@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import { constructStaticAssetPath } from '@/lib/helpers/keystatic'
+import { constructStaticAssetPath, getBlogPostName } from '@/lib/helpers/keystatic'
 
 const posts = defineCollection({
   name: 'posts',
@@ -61,6 +61,10 @@ const posts = defineCollection({
         twitter: author?.twitter,
       },
       mdx,
+      _meta: {
+        ...post._meta,
+        fileName: getBlogPostName(post._meta.fileName)
+      }
     }
   },
 })

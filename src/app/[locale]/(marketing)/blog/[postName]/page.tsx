@@ -1,7 +1,6 @@
 import { BlogMDX } from '@/components/markdown/blog/BlogMDX'
 import { buttonVariants } from '@/components/ui/Button'
 import { siteConfig } from '@/config/site.config'
-import { getBlogPostName } from '@/lib/helpers/keystatic'
 import { setRequestLocale } from '@/lib/next-intl'
 import { Locale } from '@/lib/next-intl/config'
 import { cn } from '@/lib/utils'
@@ -32,8 +31,8 @@ async function getPostFromParams({ locale, postName }: PageProps['params']) {
 export async function generateStaticParams() {
   const uniquePosts = new Set()
   allPosts.forEach((post) => {
-    const postName = getBlogPostName(post._meta.path)
-    uniquePosts.add(postName)
+    console.log('generateMetadata', post._meta.fileName)
+    uniquePosts.add(post._meta.fileName)
   })
   return Array.from(uniquePosts).map((p) => ({ postName: p }))
 }
@@ -57,7 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: post.title,
       description: post.description,
       type: 'article',
-      url: `${siteConfig.url}/blog/${getBlogPostName(post._meta.path)}`,
+      url: `${siteConfig.url}/blog/${post._meta.fileName}`,
       images: [
         {
           url: ogUrl.toString(),

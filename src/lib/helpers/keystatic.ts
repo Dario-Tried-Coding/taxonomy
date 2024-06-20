@@ -12,9 +12,17 @@ export const constructStaticAssetPath = (path: string) => {
   return newPath
 }
 
-// transforms keystatic generated filePath (with locale) to only filePath
-// example: post-1.en -> post-1
-export function getBlogPostName(path: string) {
+// transforms keystatic generated fileName (with .locale.extention) to only fileName
+// example: post-1.en.mdx -> post-1
+export function getBlogPostName(fileName: string) {
+  let postName = fileName
+  
+
+  const extentionRegex = new RegExp(/\.(mdx|md)$/)
+  postName = postName.replace(extentionRegex, '')
+
   const localeRegex = new RegExp(`\\.(${I18N_CONFIG.locales.join('|')})$`)
-  return path.replace(localeRegex, '')
+  postName = postName.replace(localeRegex, '')
+
+  return postName
 }
