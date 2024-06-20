@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import { constructBlogPostImagePath } from '@/lib/helpers/keystatic'
+import { constructStaticAssetPath } from '@/lib/helpers/keystatic'
 
 const posts = defineCollection({
   name: 'posts',
@@ -18,8 +18,8 @@ const posts = defineCollection({
     author: z.string(),
   }),
   async transform(post, context) {
-    const image = constructBlogPostImagePath(post.image)
-    const author = context.documents(authors).find((a) => a._meta.path === post.author)
+    const image = constructStaticAssetPath(post.image)
+    const author = context.documents(authors).find((a) => post.author.startsWith(a._meta.path))
     const mdx = await compileMDX(context, post, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
@@ -27,7 +27,6 @@ const posts = defineCollection({
         [
           rehypePrettyCode,
           {
-            theme: 'github-dark',
             onVisitLine(node: any) {
               // Prevent lines from collapsing in `display: grid` mode, and allow empty
               // lines to be copy/pasted
@@ -39,6 +38,7 @@ const posts = defineCollection({
             onVisitHighlightedWord(node: any) {
               node.properties.className = ['word--highlighted']
             },
+            keepBackground: false,
           },
         ],
         [
@@ -52,7 +52,16 @@ const posts = defineCollection({
         ],
       ],
     })
-    return { ...post, image, author: { name: author?.name, avatar: author?.avatar, twitter: author?.twitter }, mdx }
+    return {
+      ...post,
+      image,
+      author: {
+        name: author?.name,
+        avatar: author?.avatar && constructStaticAssetPath(author?.avatar),
+        twitter: author?.twitter,
+      },
+      mdx,
+    }
   },
 })
 

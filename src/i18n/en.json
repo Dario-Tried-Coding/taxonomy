@@ -136,6 +136,13 @@
         "read-article": "Read article",
         "no-posts": "No posts found."
       }
+    },
+    "BlogPost": {
+      "UI": {
+        "back": "See all posts",
+        "published-on": "Published on {date}",
+        "author-twitter": "@{author}"
+      }
     }
   }
 }

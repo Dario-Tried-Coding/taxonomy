@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { MDXComponents } from "mdx/types";
 import Image from 'next/image';
 import { MDXContent } from '@content-collections/mdx/react'
+import { constructStaticAssetPath } from "@/lib/helpers/keystatic";
 
 const components: MDXComponents = {
   h1: ({ className, ...props }) => <h1 className={cn('mt-2 scroll-m-20 text-4xl font-bold tracking-tight', className)} {...props} />,
@@ -45,7 +46,7 @@ const components: MDXComponents = {
   code: ({ className, ...props }) => (
     <code className={cn('relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm', className)} {...props} />
   ),
-  Image,
+  Image: ({src, ...props}) => <Image src={constructStaticAssetPath(src)} {...props} />,
   Callout: MDXCallout,
   Card: MDXCard,
 }

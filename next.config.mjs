@@ -12,6 +12,6 @@ const withNextIntl = createNextIntlPlugin('./src/lib/next-intl')
 const withMDX = createMDX()
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = { reactStrictMode: true }
 
 export default withContentCollections(withMDX(withNextIntl(nextConfig)))

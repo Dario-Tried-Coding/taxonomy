@@ -1,11 +1,12 @@
 import { I18N_CONFIG } from "@/lib/next-intl/config"
 
-// transforms keystatic generated path to Next.js compatible path
+// transforms keystatic generated path to Next.js compatible static-asset path
 // example: public/images/blog/posts/post-1.jpg -> /images/blog/posts/post-1.jpg
-export const constructBlogPostImagePath = (path: string) => {
+export const constructStaticAssetPath = (path: string) => {
   let newPath = path
 
   if (newPath.startsWith('public')) newPath = newPath.replace('public', '')
+  if (newPath.startsWith('/public')) newPath = newPath.replace('/public', '')
   if (!newPath.startsWith('/')) newPath = `/${newPath}`
 
   return newPath
