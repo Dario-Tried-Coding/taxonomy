@@ -75,7 +75,6 @@ export function themes_script(config) {
     return true
   }
 
-  
   // ---------------------------------------------------------------------
   // COLOR MODE-----------------------------------------------------------
   // ---------------------------------------------------------------------
@@ -145,11 +144,14 @@ export function themes_script(config) {
   /**
    * Updates colorScheme & resolvedModeClass with the resolved colorMode provided.
    * @param {Unresolved_CM} colorMode The colorMode to apply.
+   * @param {Object} [opts] The options object.
+   * @param {boolean} [opts.store] Whether to store the new colorMode. Defaults to false.
    */
-  function apply_CM(colorMode) {
+  function apply_CM(colorMode, opts) {
     const resolvedColorMode = resolve_CM(colorMode)
     set_CS(resolvedColorMode)
     toggle_ResolvedCM_Class(resolvedColorMode)
+    if (opts && opts.store) store_CM(colorMode)
   }
 
   // ---------------------------------------------------------------------
@@ -239,7 +241,7 @@ export function themes_script(config) {
       if (isValidOption) validated[themeAttr] = currentOpt
       else {
         // @ts-expect-error
-        let valueToSet = (config && config.fallback && config.fallback[themeAttr]) || defaultStorageTheme[themeAttr]
+        let valueToSet = (config && config.fallback && config.fallback[themeAttr]) || default_ST[themeAttr]
         if (themeAttr === 'mode' && !supports_CMPref()) valueToSet = resolve_CM(valueToSet)
 
         // @ts-expect-error
@@ -286,6 +288,7 @@ export function themes_script(config) {
 
     if (!mustStoreNewTheme) return
     localStorage.setItem(themesConfig_SK, JSON.stringify(newTheme))
+    dispatch_CustomSE({ key: themesConfig_SK, newValue: JSON.stringify(newTheme), oldValue: JSON.stringify(themeToUse) })
   }
 
   /**
@@ -329,6 +332,7 @@ export function themes_script(config) {
     if (isAlreadyPresent) return
 
     localStorage.setItem(colorMode_SK, colorMode)
+    dispatch_CustomSE({ key: colorMode_SK, newValue: colorMode, oldValue: current_SCM.value })
   }
 
   // ---------------------------------------------------------------------
@@ -411,6 +415,17 @@ export function themes_script(config) {
   // STORAGE EVENT -------------------------------------------------------
   // ---------------------------------------------------------------------
 
+  /**
+   * @param {Object} detail
+   * @param {ThemesConfig_SK | ColorMode_SK} detail.key
+   * @param {string} detail.newValue
+   * @param {string} detail.oldValue
+   */
+  function dispatch_CustomSE(detail) {
+    const customStorageEvent = new CustomEvent(custom_SEK, { detail })
+    window.dispatchEvent(customStorageEvent)
+  }
+
   function setup_SEs_Listening() {
     // Event handlers
 
@@ -423,9 +438,10 @@ export function themes_script(config) {
      * @param {boolean} [opts.applyColorMode] Whether to apply the new color mode. Defaults to false.
      */
     function handle_SCM_Change(data, opts) {
-      const { newValue } = data
+      const { newValue, oldValue } = data
 
-      const newCM_Validation = validate_CM(newValue)
+      const oldCM_Validation = validate_CM(oldValue)
+      const newCM_Validation = validate_CM(newValue, { fallback: oldCM_Validation.value })
       if (!mustHandle_CM && !newCM_Validation.passed) return
 
       if (opts && opts.applyColorMode) apply_CM(newCM_Validation.value)
@@ -457,6 +473,7 @@ export function themes_script(config) {
     /** @param {StorageEvent} e */
     function SE_Listener(e) {
       const { key, oldValue, newValue } = e
+      console.log({ key, oldValue, newValue })
 
       if (key === colorMode_SK) handle_SCM_Change({ newValue, oldValue }, { applyColorMode: mustHandle_CM })
       else if (key === themesConfig_SK) handle_ST_Change({ newValue, oldValue })
@@ -531,19 +548,12 @@ export function themes_script(config) {
    */
   function init(opts) {
     // Storage Theme
-    const currentStorageTheme = get_CurrentST()
-
-    if (!currentStorageTheme.passed) store_Theme(currentStorageTheme.theme)
-    set_TAs(currentStorageTheme.theme)
+    const currentST_Validation = get_CurrentST()
+    apply_Theme(currentST_Validation.theme, { store: !currentST_Validation.passed })
 
     // Storage ColorMode
-    const currentStorageColorMode = getCurrent_SCM()
-
-    const isValid = currentStorageColorMode.passed
-    const isAlreadyPresent = isValid && currentStorageColorMode.value === currentStorageTheme.theme.mode
-
-    if (!isValid || !isAlreadyPresent) store_CM(currentStorageTheme.theme.mode)
-    if (opts && opts.initColorMode) apply_CM(currentStorageTheme.theme.mode)
+    const currentSCM_Validation = getCurrent_SCM()
+    if (opts && opts.initColorMode) apply_CM(currentST_Validation.theme.mode, { store: !currentSCM_Validation.passed })
 
     // Storage Events Listener
     setup_SEs_Listening()

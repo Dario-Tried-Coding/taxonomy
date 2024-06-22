@@ -84,7 +84,5 @@ export type Custom_SE = CustomEvent<{
 }>
 
 export type Mutation_Changes = {
-  -readonly [K in keyof ThemesConfig]: K extends 'mode'
-    ? Unresolved_CM
-    : ThemesConfig[K]['opts'][number]
+  -readonly [K in keyof ThemesConfig]: K extends 'mode' ? Unresolved_CM : ThemesConfig[K]['opts'][number]
 }
