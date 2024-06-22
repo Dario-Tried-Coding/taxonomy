@@ -10,19 +10,19 @@
  * @typedef {import('./config').Unsafe_TA} Unsafe_TA
  * @typedef {import('./config').Safe_TA} Safe_TA
  * @typedef {import('./config').Theme_Opt} Theme_Opt
- * @typedef {import('./config').Custom_SE<ThemesConfig_SK | ColorMode_SK>} Custom_SE
+ * @typedef {import('./config').Custom_SE} Custom_SE
  * @typedef {import('./config').Mutation_Changes} MutationChanges
  */
 
 /** @param {import('./config').Script_Params} config */
 export function themes_script(config) {
   const html = document.documentElement
-  const { themesConfig, defaultStorageTheme, themesConfig_StorageKey, colorMode_StorageKey, externalLibrary } = config
+  const { themesConfig, default_ST, themesConfig_SK, colorMode_SK, custom_SEK, externalLibrary } = config
 
-  const isColorModeHandledExternally = externalLibrary && externalLibrary.colorMode
+  const mustHandle_CM = !externalLibrary || !externalLibrary.colorMode
 
   /** @type {Unresolved_CM} */ // @ts-expect-error
-  const allColorModeOpts = [...themesConfig.mode.opts, themesConfig.mode.system]
+  const CM_Opts = [...themesConfig.mode.opts, themesConfig.mode.system]
 
   // ---------------------------------------------------------------------
   // UTILS ---------------------------------------------------------------
@@ -33,7 +33,7 @@ export function themes_script(config) {
    * @param {string | undefined | null} string The string to parse.
    * @returns {unknown} Either an object or undefined.
    */
-  function parseJsonToObject(string) {
+  function parse_JsonToObj(string) {
     if (typeof string !== 'string') return undefined
 
     try {
@@ -50,7 +50,7 @@ export function themes_script(config) {
    * @param {Object} obj2 The second object to compare.
    * @returns {boolean} Either true if they are the same, or false otherwise.
    */
-  function isEquivalentObject(obj1, obj2) {
+  function isSameObj(obj1, obj2) {
     if (typeof obj1 !== 'object' || obj1 === null || typeof obj2 !== 'object' || obj2 === null || Array.isArray(obj1) || Array.isArray(obj2)) {
       return false
     }
@@ -69,31 +69,32 @@ export function themes_script(config) {
       const areObjects =
         typeof val1 === 'object' && typeof val2 === 'object' && val1 !== null && val2 !== null && !Array.isArray(val1) && !Array.isArray(val2)
 
-      if ((areObjects && !isEquivalentObject(val1, val2)) || (!areObjects && val1 !== val2)) return false
+      if ((areObjects && !isSameObj(val1, val2)) || (!areObjects && val1 !== val2)) return false
     }
 
     return true
   }
 
+  
+  // ---------------------------------------------------------------------
+  // COLOR MODE-----------------------------------------------------------
+  // ---------------------------------------------------------------------
+
   /**
    * Indicates if the browser supports ColorMode preference.
    * @returns {boolean} Either true if it's supported, or false otherwise.
    */
-  function supportsColorSchemePref() {
+  function supports_CMPref() {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme)').matches
   }
-
-  // ---------------------------------------------------------------------
-  // COLOR MODE-----------------------------------------------------------
-  // ---------------------------------------------------------------------
 
   /**
    * Decides between the provided ColorMode (if valid ResolvedMode) or the fallback ResolvedMode (system's preferred if supported, otherwise default).
    * @param {Unresolved_CM} mode The ColorMode to resolve. MUST BE VALID!!!
    * @returns {Resolved_CM} A ResolvedMode. If 'system', based on the browser's preference.
    */
-  function resolveColorMode(mode) {
-    const supportsDarkMode = supportsColorSchemePref()
+  function resolve_CM(mode) {
+    const supportsDarkMode = supports_CMPref()
 
     if (mode === themesConfig.mode.system) {
       const systemPreferredMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
@@ -109,13 +110,13 @@ export function themes_script(config) {
    * @param {Unresolved_CM} [opts.fallback] The fallback ColorMode to use if the string is not valid. MUST BE VALID!!!
    * @returns {{value: Unresolved_CM, passed: boolean}} A ColorMode and wether if validation succeded.
    */
-  function validateColorMode(mode, opts) {
-    const supportsDarkMode = supportsColorSchemePref()
-    const isValid = !!mode && allColorModeOpts.includes(mode)
+  function validate_CM(mode, opts) {
+    const supportsDarkMode = supports_CMPref()
+    const isValid = !!mode && CM_Opts.includes(mode)
 
     if (!isValid) {
-      const colorModeToReturn = (opts && opts.fallback) || defaultStorageTheme.mode
-      return { value: supportsDarkMode ? colorModeToReturn : resolveColorMode(colorModeToReturn), passed: false }
+      const fallback_CM = (opts && opts.fallback) || default_ST.mode
+      return { value: supportsDarkMode ? fallback_CM : resolve_CM(fallback_CM), passed: false }
     }
 
     // @ts-expect-error
@@ -129,12 +130,12 @@ export function themes_script(config) {
    * @param {Resolved_CM} [opts.fallback] The fallback ResolvedMode to use if the string is not valid. MUST BE VALID!!!
    * @returns {{colorMode: Resolved_CM, passed: boolean}} A ResolvedMode and wether if validation succeded.
    */
-  function validateResolvedMode(mode, opts) {
+  function validate_ResolvedCM(mode, opts) {
     const isValid = !!mode && themesConfig.mode.opts.includes(mode)
 
     if (!isValid) {
-      const colorModeToReturn = (opts && opts.fallback) || defaultStorageTheme.mode
-      return { colorMode: resolveColorMode(colorModeToReturn), passed: false }
+      const fallback_CM = (opts && opts.fallback) || default_ST.mode
+      return { colorMode: resolve_CM(fallback_CM), passed: false }
     }
 
     // @ts-expect-error
@@ -145,10 +146,10 @@ export function themes_script(config) {
    * Updates colorScheme & resolvedModeClass with the resolved colorMode provided.
    * @param {Unresolved_CM} colorMode The colorMode to apply.
    */
-  function applyColorMode(colorMode) {
-    const resolvedColorMode = resolveColorMode(colorMode)
-    setColorScheme(resolvedColorMode)
-    toggleResolvedModeClass(resolvedColorMode)
+  function apply_CM(colorMode) {
+    const resolvedColorMode = resolve_CM(colorMode)
+    set_CS(resolvedColorMode)
+    toggle_ResolvedCM_Class(resolvedColorMode)
   }
 
   // ---------------------------------------------------------------------
@@ -161,25 +162,25 @@ export function themes_script(config) {
    * @param {Resolved_CM} [opts.fallback] The fallback ResolvedMode to use if the value retrieved is not a valid ResolvedMode. MUST BE VALID!!!
    * @returns {{value: Resolved_CM, passed: boolean}} The current color scheme validation info, if supported.
    */
-  function getCurrentColorScheme(opts) {
+  function getCurrent_CS(opts) {
     const value = html.style.colorScheme
 
-    const fallbackMode = (opts && opts.fallback) || defaultStorageTheme.mode
-    if (!value) return { value: resolveColorMode(fallbackMode), passed: false }
+    const fallback_CM = (opts && opts.fallback) || default_ST.mode
+    if (!value) return { value: resolve_CM(fallback_CM), passed: false }
 
-    const { colorMode, passed } = validateResolvedMode(value, { fallback: opts && opts.fallback })
+    const { colorMode, passed } = validate_ResolvedCM(value, { fallback: opts && opts.fallback })
     return { value: colorMode, passed }
   }
 
   /**
    * Updates the color scheme with the provided ResolvedMode, if not already set.
-   * @param {Resolved_CM} colorSchemeToSet The resolved color mode. MUST BE VALID!!!
+   * @param {Resolved_CM} CS_ToSet The resolved color mode. MUST BE VALID!!!
    */
-  function setColorScheme(colorSchemeToSet) {
-    const currentColorScheme = getCurrentColorScheme()
+  function set_CS(CS_ToSet) {
+    const current_CS = getCurrent_CS()
 
-    if (currentColorScheme.passed && currentColorScheme.value === colorSchemeToSet) return
-    html.style.colorScheme = colorSchemeToSet
+    if (current_CS.passed && current_CS.value === CS_ToSet) return
+    html.style.colorScheme = CS_ToSet
   }
 
   // ----------------------------------------------------------------------
@@ -188,11 +189,11 @@ export function themes_script(config) {
 
   /**
    * Toggles the class '.dark' based on the provided ResolvedMode.
-   * @param {Resolved_CM} resolvedMode The new resolvedMode.
+   * @param {Resolved_CM} resolved_CM The new resolvedMode.
    */
-  function toggleResolvedModeClass(resolvedMode) {
-    html.classList.toggle('dark', resolvedMode === 'dark')
-    html.classList.toggle('light', resolvedMode === 'light')
+  function toggle_ResolvedCM_Class(resolved_CM) {
+    html.classList.toggle('dark', resolved_CM === 'dark')
+    html.classList.toggle('light', resolved_CM === 'light')
   }
 
   // ----------------------------------------------------------------------
@@ -210,9 +211,11 @@ export function themes_script(config) {
    * @param {StorageTheme} [config.fallback] The fallback value to use if the string is not valid. MUST BE VALID!!!
    * @return {ThemeValidation} The theme validation info.
    */
-  function validateTheme(string, config) {
-    const parsedTheme = parseJsonToObject(string)
-    if (!parsedTheme) return { theme: (config && config.fallback) || defaultStorageTheme, passed: false }
+  function validate_Theme(string, config) {
+    const parsedTheme = parse_JsonToObj(string)
+
+    const fallbackTheme = (config && config.fallback) || default_ST
+    if (!parsedTheme) return { theme: fallbackTheme, passed: false }
 
     /** @type {StorageTheme} */ // @ts-expect-error
     const validated = {}
@@ -237,7 +240,7 @@ export function themes_script(config) {
       else {
         // @ts-expect-error
         let valueToSet = (config && config.fallback && config.fallback[themeAttr]) || defaultStorageTheme[themeAttr]
-        if (themeAttr === 'mode' && !supportsColorSchemePref()) valueToSet = resolveColorMode(valueToSet)
+        if (themeAttr === 'mode' && !supports_CMPref()) valueToSet = resolve_CM(valueToSet)
 
         // @ts-expect-error
         validated[themeAttr] = valueToSet
@@ -256,9 +259,9 @@ export function themes_script(config) {
    * @param {StorageTheme} [opts.fallback] The fallback value to use if the theme is not valid. MUST BE VALID!!!
    * @returns {ThemeValidation} The current storaged theme validation info, if present.
    */
-  function getCurrentStorageTheme(opts) {
-    const value = localStorage.getItem(themesConfig_StorageKey)
-    const validation = validateTheme(value, { fallback: opts && opts.fallback })
+  function get_CurrentST(opts) {
+    const value = localStorage.getItem(themesConfig_SK)
+    const validation = validate_Theme(value, { fallback: opts && opts.fallback })
     return validation
   }
 
@@ -268,8 +271,8 @@ export function themes_script(config) {
    * @param {Object} [opts] The options object.
    * @param {boolean} [opts.force] Whether to force the update. Defaults to false.
    */
-  function storeTheme(theme, opts) {
-    const currentStoredTheme = getCurrentStorageTheme()
+  function store_Theme(theme, opts) {
+    const currentStoredTheme = get_CurrentST()
 
     const themeToUse = currentStoredTheme.theme
     const newTheme = { ...themeToUse }
@@ -279,10 +282,10 @@ export function themes_script(config) {
 
     const mustForceUpdate = opts && opts.force
     const mustStoreNewTheme =
-      mustForceUpdate || !currentStoredTheme.passed || (currentStoredTheme.passed && !isEquivalentObject(currentStoredTheme.theme, newTheme))
+      mustForceUpdate || !currentStoredTheme.passed || (currentStoredTheme.passed && !isSameObj(currentStoredTheme.theme, newTheme))
 
     if (!mustStoreNewTheme) return
-    localStorage.setItem(themesConfig_StorageKey, JSON.stringify(newTheme))
+    localStorage.setItem(themesConfig_SK, JSON.stringify(newTheme))
   }
 
   /**
@@ -291,9 +294,9 @@ export function themes_script(config) {
    * @param {Object} [opts] The options object.
    * @param {boolean} [opts.store] Whether to store the new theme. Defaults to false.
    */
-  function applyTheme(theme, opts) {
-    if (opts && opts.store) storeTheme(theme)
-    setThemeAttrs(theme)
+  function apply_Theme(theme, opts) {
+    if (opts && opts.store) store_Theme(theme)
+    set_TAs(theme)
   }
 
   // ---------------------------------------------------------------------
@@ -310,22 +313,22 @@ export function themes_script(config) {
    * @param {Unresolved_CM} [opts.fallback] The fallback ColorMode to use if the value retrieved is not a valid ColorMode. MUST BE VALID!!!
    * @returns {ColorModeValidation} The current stored resolved color mode value.
    */
-  function getCurrentStorageColorMode(opts) {
-    const retrievedValue = localStorage.getItem(colorMode_StorageKey)
-    return validateColorMode(retrievedValue, { fallback: opts && opts.fallback })
+  function getCurrent_SCM(opts) {
+    const retrievedValue = localStorage.getItem(colorMode_SK)
+    return validate_CM(retrievedValue, { fallback: opts && opts.fallback })
   }
 
   /**
    * Stores the provided ColorMode if not already set.
    * @param {Unresolved_CM} colorMode The ColorMode to set. MUST BE VALID!!!
    */
-  function storeColorMode(colorMode) {
-    const currentStorageColorMode = getCurrentStorageColorMode()
+  function store_CM(colorMode) {
+    const current_SCM = getCurrent_SCM()
 
-    const isAlreadyPresent = currentStorageColorMode.passed && currentStorageColorMode.value === colorMode
+    const isAlreadyPresent = current_SCM.passed && current_SCM.value === colorMode
     if (isAlreadyPresent) return
 
-    localStorage.setItem(colorMode_StorageKey, colorMode)
+    localStorage.setItem(colorMode_SK, colorMode)
   }
 
   // ---------------------------------------------------------------------
@@ -343,18 +346,18 @@ export function themes_script(config) {
    * @param {Theme_Opt} [opts.fallback] The fallback value to use if the value is not valid. MUST BE VALID!!!
    * @return {ThemeAttrValidation} A valid value for that themeAttribute.
    */
-  function validateThemeAttr(attr, opts) {
+  function validate_TA(attr, opts) {
     const { name, value } = attr
     const { fallback } = opts || {}
 
     const isValidAttr = themesConfig.hasOwnProperty(name)
-    const options = name !== 'mode' ? themesConfig[name].opts : allColorModeOpts
+    const options = name !== 'mode' ? themesConfig[name].opts : CM_Opts
     const isValid = isValidAttr && !!value && options.includes(value)
 
     if (!isValid) {
       // @ts-expect-error - used for deciding if can fallback to 'system' (if 'system' is provided as fallback)
-      if (name === 'mode') return validateColorMode(value, { fallback })
-      return { value: fallback || defaultStorageTheme[name], passed: false }
+      if (name === 'mode') return validate_CM(value, { fallback })
+      return { value: fallback || default_ST[name], passed: false }
     }
 
     // @ts-expect-error
@@ -368,12 +371,12 @@ export function themes_script(config) {
    * @param {Theme_Opt} [opts.fallback] The fallback value to use if the value is not valid. MUST BE VALID!!!
    * @returns {ThemeAttrValidation} The current theme attribute validation info, if present.
    */
-  function getCurrentThemeAttr(attrName, opts) {
+  function getCurrent_TA(attrName, opts) {
     const attr = 'data-' + attrName
     const currentValue = html.getAttribute(attr)
     const { fallback } = opts || {}
 
-    const validation = validateThemeAttr({ name: attrName, value: currentValue }, { fallback })
+    const validation = validate_TA({ name: attrName, value: currentValue }, { fallback })
     return validation
   }
 
@@ -381,11 +384,11 @@ export function themes_script(config) {
    * Sets the value for the passed themeAttribute, if not already present.
    * @param {Safe_TA} attr The themeAttribute info to set. MUST BE VALID!!!
    */
-  function setThemeAttr(attr) {
+  function set_TA(attr) {
     const { name, value } = attr
-    const currentAttrValidation = getCurrentThemeAttr(name)
+    const currentTA_Validation = getCurrent_TA(name)
 
-    const isAlreadyPresent = currentAttrValidation.passed && currentAttrValidation.value === value
+    const isAlreadyPresent = currentTA_Validation.passed && currentTA_Validation.value === value
     if (isAlreadyPresent) return
 
     html.setAttribute('data-' + name, String(value))
@@ -395,12 +398,12 @@ export function themes_script(config) {
    * Updates the ThemeAttr for each of the props in the passed object, if not already present.
    * @param {Partial<StorageTheme>} theme The theme object to set
    */
-  function setThemeAttrs(theme) {
-    for (const themeAttr in theme) {
-      if (!theme.hasOwnProperty(themeAttr)) continue
+  function set_TAs(theme) {
+    for (const TA_Name in theme) {
+      if (!theme.hasOwnProperty(TA_Name)) continue
 
       // @ts-expect-error
-      setThemeAttr({ name: themeAttr, value: theme[themeAttr] })
+      set_TA({ name: TA_Name, value: theme[TA_Name] })
     }
   }
 
@@ -408,68 +411,66 @@ export function themes_script(config) {
   // STORAGE EVENT -------------------------------------------------------
   // ---------------------------------------------------------------------
 
-  function setupStorageEventListening() {
+  function setup_SEs_Listening() {
     // Event handlers
 
     /**
      * Updates storageTheme to mantain it in sync with storageColorMode when it changes (if valid).
      * @param {Object} data The data object containing the new and old values of the color mode.
-     * @param {Custom_SE['detail']['newValue'] | null} data.newValue The new value of the color mode.
-     * @param {string | null} data.oldValue The old value of the color mode.
+     * @param {string | null | undefined} data.newValue The new value of the color mode.
+     * @param {string | null | undefined} data.oldValue The old value of the color mode.
      * @param {object} [opts] The options object.
      * @param {boolean} [opts.applyColorMode] Whether to apply the new color mode. Defaults to false.
      */
-    function handleStorageColorModeChange(data, opts) {
+    function handle_SCM_Change(data, opts) {
       const { newValue } = data
 
-      const newColorModeValidation = validateColorMode(newValue)
-      if (isColorModeHandledExternally && !newColorModeValidation.passed) return
+      const newCM_Validation = validate_CM(newValue)
+      if (!mustHandle_CM && !newCM_Validation.passed) return
 
-      if (opts && opts.applyColorMode) applyColorMode(newColorModeValidation.value)
-      storeTheme({ mode: newColorModeValidation.value })
+      if (opts && opts.applyColorMode) apply_CM(newCM_Validation.value)
+      store_Theme({ mode: newCM_Validation.value })
     }
 
     /**
      * Keeps storageTheme & storageColorMode & themeAttributes in sync on storageColorMode change.
      * @param {Object} data The data object containing the new and old values of the color mode.
-     * @param {string | null} data.newValue The new value of the color mode.
-     * @param {string | null} data.oldValue The old value of the color mode.
+     * @param {string | null | undefined} data.newValue The new value of the color mode.
+     * @param {string | null | undefined} data.oldValue The old value of the color mode.
      */
-    function handleStorageThemeChange(data) {
+    function handle_ST_Change(data) {
       const { newValue, oldValue } = data
 
-      const oldThemeValidation = validateTheme(oldValue)
-      const newThemeValidation = validateTheme(newValue, { fallback: oldThemeValidation.theme })
+      const oldTheme_Validation = validate_Theme(oldValue)
+      const newTheme_Validation = validate_Theme(newValue, { fallback: oldTheme_Validation.theme })
 
-      const areBothValid = oldThemeValidation.passed && newThemeValidation.passed
-      const isSameValidTheme = areBothValid && isEquivalentObject(oldThemeValidation.theme, newThemeValidation.theme)
+      const areBothValid = oldTheme_Validation.passed && newTheme_Validation.passed
+      const isSameValidTheme = areBothValid && isSameObj(oldTheme_Validation.theme, newTheme_Validation.theme)
       if (isSameValidTheme) return
 
-      applyTheme(newThemeValidation.theme, { store: true })
-      storeColorMode(newThemeValidation.theme.mode)
+      apply_Theme(newTheme_Validation.theme, { store: true })
+      store_CM(newTheme_Validation.theme.mode)
     }
 
     // Listeners
 
     /** @param {StorageEvent} e */
-    function storageEventListener(e) {
-      console.log('storageEvent', e)
+    function SE_Listener(e) {
       const { key, oldValue, newValue } = e
 
-      if (key === colorMode_StorageKey) handleStorageColorModeChange({ newValue, oldValue }, { applyColorMode: !isColorModeHandledExternally })
-      else if (key === themesConfig_StorageKey) handleStorageThemeChange({ newValue, oldValue })
+      if (key === colorMode_SK) handle_SCM_Change({ newValue, oldValue }, { applyColorMode: mustHandle_CM })
+      else if (key === themesConfig_SK) handle_ST_Change({ newValue, oldValue })
     }
-    window.addEventListener('storage', storageEventListener)
+    window.addEventListener('storage', SE_Listener)
 
     /** @param {Custom_SE} e */
-    function customStorageEventListener(e) {
-      console.log('customStorageEvent', e.detail)
+    function customSE_Listener(e) {
       const { key, newValue, oldValue } = e.detail
 
-      if (key === colorMode_StorageKey) handleStorageColorModeChange({ newValue, oldValue }, { applyColorMode: true })
-      else if (key === themesConfig_StorageKey) handleStorageThemeChange({ newValue, oldValue })
+      if (key === colorMode_SK) handle_SCM_Change({ newValue, oldValue }, { applyColorMode: true })
+      else if (key === themesConfig_SK) handle_ST_Change({ newValue, oldValue })
     }
-    window.addEventListener('customStorageEvent', customStorageEventListener)
+    window.addEventListener(custom_SEK, customSE_Listener)
   }
 
   // ---------------------------------------------------------------------
@@ -481,7 +482,7 @@ export function themes_script(config) {
    * @param {MutationRecord[]} mutations
    * @param {MutationObserver} observer
    */
-  function handleThemeAttrsChange(mutations, observer) {
+  function handle_TAs_Change(mutations, observer) {
     /** @type {Partial<MutationChanges>} */
     const changes = {}
 
@@ -498,11 +499,11 @@ export function themes_script(config) {
       const oldValue = mutation.oldValue
       const newValue = html.getAttribute(mutation.attributeName)
 
-      /** @type {AttrName} */ // @ts-expect-error
+      /** @type {TA_Name} */ // @ts-expect-error
       const attrName = mutation.attributeName.replace('data-', '')
 
-      const oldAttrValidation = validateThemeAttr({ name: attrName, value: oldValue })
-      const newAttrValidation = validateThemeAttr({ name: attrName, value: newValue }, { fallback: oldAttrValidation.value })
+      const oldAttrValidation = validate_TA({ name: attrName, value: oldValue })
+      const newAttrValidation = validate_TA({ name: attrName, value: newValue }, { fallback: oldAttrValidation.value })
 
       const isSameValidValue = oldAttrValidation.passed && newAttrValidation.passed && oldAttrValidation.value === newAttrValidation.value
       if (isSameValidValue) continue
@@ -511,11 +512,11 @@ export function themes_script(config) {
       changes[attrName] = newAttrValidation.value
     }
 
-    applyTheme(changes, { store: true })
+    apply_Theme(changes, { store: true })
   }
 
   function setupThemeAttrsObserver() {
-    const observer = new MutationObserver(handleThemeAttrsChange)
+    const observer = new MutationObserver(handle_TAs_Change)
     observer.observe(html, { attributes: true, attributeOldValue: true, attributeFilter: Object.keys(themesConfig).map((key) => 'data-' + key) })
   }
 
@@ -530,26 +531,26 @@ export function themes_script(config) {
    */
   function init(opts) {
     // Storage Theme
-    const currentStorageTheme = getCurrentStorageTheme()
+    const currentStorageTheme = get_CurrentST()
 
-    if (!currentStorageTheme.passed) storeTheme(currentStorageTheme.theme)
-    setThemeAttrs(currentStorageTheme.theme)
+    if (!currentStorageTheme.passed) store_Theme(currentStorageTheme.theme)
+    set_TAs(currentStorageTheme.theme)
 
     // Storage ColorMode
-    const currentStorageColorMode = getCurrentStorageColorMode()
+    const currentStorageColorMode = getCurrent_SCM()
 
     const isValid = currentStorageColorMode.passed
     const isAlreadyPresent = isValid && currentStorageColorMode.value === currentStorageTheme.theme.mode
 
-    if (!isValid || !isAlreadyPresent) storeColorMode(currentStorageTheme.theme.mode)
-    if (opts && opts.initColorMode) applyColorMode(currentStorageTheme.theme.mode)
+    if (!isValid || !isAlreadyPresent) store_CM(currentStorageTheme.theme.mode)
+    if (opts && opts.initColorMode) apply_CM(currentStorageTheme.theme.mode)
 
     // Storage Events Listener
-    setupStorageEventListening()
+    setup_SEs_Listening()
 
     // Theme Attributes Observer
     setupThemeAttrsObserver()
   }
 
-  init({ initColorMode: !isColorModeHandledExternally })
+  init({ initColorMode: mustHandle_CM })
 }

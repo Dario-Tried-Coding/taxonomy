@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu'
-import { COLOR_MODE_SK, CUSTOM_SEK, ColorMode_SK, Unresolved_CM, Custom_SE, Custom_SEK, ThemesConfig_SK } from '@/theme/config'
+import { COLOR_MODE_SK, CUSTOM_SEK, ColorMode_SK, Unresolved_CM, Custom_SE, Custom_SEK, ThemesConfig_SK, StorageTheme } from '@/theme/config'
 import { useMounted } from '@mantine/hooks'
 import { Laptop, Loader2, LucideIcon, Moon, Sun } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -30,8 +30,13 @@ const ThemesSwitch: FC<ThemesSwitchProps> = ({}) => {
     return () => window.removeEventListener(CUSTOM_SEK, handler)
   }, [])
 
-  function dispatchCustomStorageEvent({ key, newValue, oldValue }: Custom_SE<ThemesConfig_SK | ColorMode_SK>['detail']) {
-    const customStorageEvent = new CustomEvent<Custom_SE<ThemesConfig_SK | ColorMode_SK>['detail']>(CUSTOM_SEK, {
+  function dispatchCustomStorageEvent({
+    key,
+    newValue,
+    oldValue,
+  }:
+    | { key: ThemesConfig_SK | ColorMode_SK; newValue: string; oldValue: string }) {
+    const customStorageEvent = new CustomEvent<Custom_SE['detail']>(CUSTOM_SEK, {
       detail: { key, newValue, oldValue },
     })
     window.dispatchEvent(customStorageEvent)

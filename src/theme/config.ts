@@ -42,6 +42,7 @@ export type Script_Params = {
   colorMode_SK: ColorMode_SK
   themesConfig: ThemesConfig
   default_ST: Default_ST
+  custom_SEK: Custom_SEK
   externalLibrary?: {
     colorMode: boolean
   }
@@ -76,10 +77,10 @@ type ExtractAllOpts<T> = {
 
 export type Theme_Opt = ExtractAllOpts<ThemesConfig> | System_CM
 
-export type Custom_SE<K extends ThemesConfig_SK | ColorMode_SK> = CustomEvent<{
-  key: K
-  newValue: K extends ThemesConfig_SK ? StorageTheme : Unresolved_CM
-  oldValue: K extends ThemesConfig_SK ? StorageTheme : Unresolved_CM
+export type Custom_SE = CustomEvent<{
+  key: ThemesConfig_SK | ColorMode_SK
+  newValue: string | null
+  oldValue: string | null
 }>
 
 export type Mutation_Changes = {
