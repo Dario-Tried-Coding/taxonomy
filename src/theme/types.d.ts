@@ -1,7 +1,7 @@
-import { Custom_Storage_Event } from "@/theme/config";
+import { ColorMode_SK, Custom_SE, CUSTOM_SEK, ThemesConfig_SK } from '@/theme/config'
 
 declare global {
   interface WindowEventMap {
-    'customStorageEvent': Custom_Storage_Event
+    [CUSTOM_SEK]: Custom_SE<ThemesConfig_SK | ColorMode_SK>
   }
 }

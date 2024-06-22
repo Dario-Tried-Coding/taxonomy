@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu'
-import { COLOR_MODE_STORAGE_KEY, Color_Mode } from '@/theme/config'
+import { COLOR_MODE_SK, CUSTOM_SEK, ColorMode_SK, Unresolved_CM, Custom_SE, Custom_SEK, ThemesConfig_SK } from '@/theme/config'
 import { useMounted } from '@mantine/hooks'
 import { Laptop, Loader2, LucideIcon, Moon, Sun } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -10,28 +10,36 @@ import { FC, useEffect, useState } from 'react'
 
 interface ThemesSwitchProps {}
 
-const ThemesSwitch: FC<ThemesSwitchProps> = ({ }) => {
+const ThemesSwitch: FC<ThemesSwitchProps> = ({}) => {
   const t = useTranslations()
 
   const isMounted = useMounted()
-  const [mode, setMode] = useState<Color_Mode | null>(null)
+  const [mode, setMode] = useState<Unresolved_CM | null>(null)
 
   useEffect(() => {
     if (!isMounted) return
 
-    const colorMode = localStorage.getItem(COLOR_MODE_STORAGE_KEY) as Color_Mode
+    const colorMode = localStorage.getItem(COLOR_MODE_SK) as Unresolved_CM
     setMode(colorMode)
   }, [isMounted])
 
   useEffect(() => {
-    const handler = (e: WindowEventMap['customStorageEvent']) => e.detail.key === COLOR_MODE_STORAGE_KEY && setMode(e.detail.newValue as Color_Mode)
+    const handler = (e: WindowEventMap[Custom_SEK]) => e.detail.key === COLOR_MODE_SK && setMode(e.detail.newValue as Unresolved_CM)
 
-    window.addEventListener('customStorageEvent', handler)
-    return () => window.removeEventListener('customStorageEvent', handler)
+    window.addEventListener(CUSTOM_SEK, handler)
+    return () => window.removeEventListener(CUSTOM_SEK, handler)
   }, [])
 
-  const updateMode = (newMode: Color_Mode) => {
-    localStorage.setItem(COLOR_MODE_STORAGE_KEY, newMode)
+  function dispatchCustomStorageEvent({ key, newValue, oldValue }: Custom_SE<ThemesConfig_SK | ColorMode_SK>['detail']) {
+    const customStorageEvent = new CustomEvent<Custom_SE<ThemesConfig_SK | ColorMode_SK>['detail']>(CUSTOM_SEK, {
+      detail: { key, newValue, oldValue },
+    })
+    window.dispatchEvent(customStorageEvent)
+  }
+
+  const updateMode = (newMode: Unresolved_CM) => {
+    localStorage.setItem(COLOR_MODE_SK, newMode)
+    dispatchCustomStorageEvent({key: COLOR_MODE_SK, newValue: newMode, oldValue: mode!})
   }
 
   let Icon: LucideIcon | undefined = undefined
@@ -44,7 +52,7 @@ const ThemesSwitch: FC<ThemesSwitchProps> = ({ }) => {
       break
     case 'system':
       Icon = Laptop
-      break;
+      break
   }
 
   return (
